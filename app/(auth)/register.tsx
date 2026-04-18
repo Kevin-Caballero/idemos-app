@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
 import {
   ActivityIndicator,
   Image,
@@ -12,63 +12,26 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuthStore } from "@/store/auth.store";
+import { useRegisterForm } from "@/hooks/use-register-form";
 
 export default function RegisterScreen() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const setTokens = useAuthStore((s) => s.setTokens);
-
-  async function handleRegister() {
-    if (!name.trim() || !email.trim() || !password || !confirmPassword) {
-      setError("Por favor, rellena todos los campos.");
-      return;
-    }
-    if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden.");
-      return;
-    }
-    if (password.length < 8) {
-      setError("La contraseña debe tener al menos 8 caracteres.");
-      return;
-    }
-    if (!acceptedTerms) {
-      setError("Debes aceptar los términos y condiciones.");
-      return;
-    }
-    setError(null);
-    setLoading(true);
-    const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-    try {
-      const res = await fetch(`${apiUrl}/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim().toLowerCase(),
-          password,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.message ?? "Error al crear la cuenta.");
-        return;
-      }
-      await setTokens(data.accessToken, data.refreshToken);
-      router.replace("/(tabs)");
-    } catch (err) {
-      setError("No se pudo conectar con el servidor.");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    showPassword,
+    setShowPassword,
+    acceptedTerms,
+    setAcceptedTerms,
+    error,
+    loading,
+    handleRegister,
+  } = useRegisterForm();
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -80,7 +43,6 @@ export default function RegisterScreen() {
           contentContainerClassName="px-6 py-8"
           keyboardShouldPersistTaps="handled"
         >
-          {/* Cabecera */}
           <View className="mb-8">
             <Text className="text-3xl font-bold text-gray-900">
               Únete a IDemos
@@ -95,9 +57,7 @@ export default function RegisterScreen() {
             />
           </View>
 
-          {/* Formulario */}
           <View className="gap-4">
-            {/* Nombre */}
             <View className="gap-1.5">
               <Text className="text-sm font-medium text-gray-700">
                 Nombre completo
@@ -113,7 +73,6 @@ export default function RegisterScreen() {
               />
             </View>
 
-            {/* Email */}
             <View className="gap-1.5">
               <Text className="text-sm font-medium text-gray-700">
                 Correo electrónico
@@ -130,7 +89,6 @@ export default function RegisterScreen() {
               />
             </View>
 
-            {/* Contraseña */}
             <View className="gap-1.5">
               <Text className="text-sm font-medium text-gray-700">
                 Contraseña
@@ -155,7 +113,6 @@ export default function RegisterScreen() {
               </View>
             </View>
 
-            {/* Confirmar contraseña */}
             <View className="gap-1.5">
               <Text className="text-sm font-medium text-gray-700">
                 Repite la contraseña
@@ -170,7 +127,6 @@ export default function RegisterScreen() {
               />
             </View>
 
-            {/* Términos */}
             <Pressable
               className="flex-row items-start gap-3 mt-1"
               onPress={() => setAcceptedTerms((v) => !v)}
@@ -194,10 +150,8 @@ export default function RegisterScreen() {
               </Text>
             </Pressable>
 
-            {/* Error */}
             {error && <Text className="text-secondary text-sm">{error}</Text>}
 
-            {/* Botón */}
             <Pressable
               className="w-full bg-secondary rounded-xl py-4 items-center active:opacity-80 mt-2"
               onPress={handleRegister}
@@ -212,7 +166,6 @@ export default function RegisterScreen() {
               )}
             </Pressable>
 
-            {/* Link login */}
             <View className="flex-row justify-center gap-1 pb-8">
               <Text className="text-gray-500 text-sm">¿Ya tienes cuenta?</Text>
               <Pressable onPress={() => router.replace("/(auth)/login")}>

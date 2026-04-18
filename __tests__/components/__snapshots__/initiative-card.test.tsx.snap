@@ -1,0 +1,589 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InitiativeCard snapshots matches snapshot for a Proposicion initiative 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  className="mx-4 mb-3"
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "opacity": 1,
+      "transform": [
+        {
+          "scale": 1,
+        },
+      ],
+    }
+  }
+>
+  <View
+    className="rounded-2xl overflow-hidden bg-white dark:bg-neutral-900"
+    style={
+      {
+        "elevation": 3,
+        "shadowColor": "#FF7A6E",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 10,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "#FF7A6E",
+          "height": 3,
+        }
+      }
+    />
+    <ViewManagerAdapter_ExpoLinearGradient
+      className="p-4"
+      colors={
+        [
+          956267118,
+          0,
+        ]
+      }
+      endPoint={
+        [
+          0,
+          0.6,
+        ]
+      }
+      startPoint={
+        [
+          0,
+          0,
+        ]
+      }
+    >
+      <View
+        className="flex-row items-center justify-between mb-3"
+      >
+        <View
+          className="rounded-full px-3 py-1"
+          style={
+            {
+              "backgroundColor": "#FF7A6E24",
+            }
+          }
+        >
+          <Text
+            className="text-xs font-semibold"
+            style={
+              {
+                "color": "#FF7A6E",
+              }
+            }
+          >
+            Proposición
+          </Text>
+        </View>
+        <Text
+          className="text-xs text-neutral-400 dark:text-neutral-500"
+        >
+          122/000042
+        </Text>
+      </View>
+      <Text
+        className="text-[15px] font-semibold text-neutral-900 dark:text-neutral-100 mb-3"
+        numberOfLines={3}
+        style={
+          {
+            "lineHeight": 22,
+          }
+        }
+      >
+        Proposición de Ley sobre transparencia en la acción pública
+      </Text>
+      <View
+        className="flex-row items-center gap-1.5 mb-4"
+      >
+        <Ionicons
+          color="#a3a3a3"
+          name="person-outline"
+          size={12}
+        />
+        <Text
+          className="text-xs text-neutral-400 dark:text-neutral-500 flex-1"
+          numberOfLines={1}
+        >
+          Grupo Parlamentario Socialista
+        </Text>
+      </View>
+      <View
+        className="h-px bg-neutral-100 dark:bg-neutral-800 mb-3"
+      />
+      <View
+        className="flex-row items-center justify-between"
+      >
+        <View
+          className="flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
+          style={
+            {
+              "backgroundColor": "rgba(16,185,129,0.12)",
+              "maxWidth": "68%",
+            }
+          }
+        >
+          <View
+            className="w-1.5 h-1.5 rounded-full"
+            style={
+              {
+                "backgroundColor": "#10b981",
+              }
+            }
+          />
+          <Text
+            className="text-xs font-medium"
+            numberOfLines={1}
+            style={
+              {
+                "color": "#059669",
+              }
+            }
+          >
+            Aprobada definitivamente
+          </Text>
+        </View>
+        <View
+          className="flex-row items-center gap-1"
+        >
+          <Ionicons
+            color="#a3a3a3"
+            name="calendar-outline"
+            size={11}
+          />
+          <Text
+            className="text-xs text-neutral-400 dark:text-neutral-500"
+          >
+            15 ene 2026
+          </Text>
+        </View>
+      </View>
+    </ViewManagerAdapter_ExpoLinearGradient>
+  </View>
+</View>
+`;
+
+exports[`InitiativeCard snapshots matches snapshot for a Proyecto initiative 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  className="mx-4 mb-3"
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "opacity": 1,
+      "transform": [
+        {
+          "scale": 1,
+        },
+      ],
+    }
+  }
+>
+  <View
+    className="rounded-2xl overflow-hidden bg-white dark:bg-neutral-900"
+    style={
+      {
+        "elevation": 3,
+        "shadowColor": "#5C6CFA",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 10,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "#5C6CFA",
+          "height": 3,
+        }
+      }
+    />
+    <ViewManagerAdapter_ExpoLinearGradient
+      className="p-4"
+      colors={
+        [
+          945581306,
+          0,
+        ]
+      }
+      endPoint={
+        [
+          0,
+          0.6,
+        ]
+      }
+      startPoint={
+        [
+          0,
+          0,
+        ]
+      }
+    >
+      <View
+        className="flex-row items-center justify-between mb-3"
+      >
+        <View
+          className="rounded-full px-3 py-1"
+          style={
+            {
+              "backgroundColor": "#5C6CFA24",
+            }
+          }
+        >
+          <Text
+            className="text-xs font-semibold"
+            style={
+              {
+                "color": "#5C6CFA",
+              }
+            }
+          >
+            Proyecto
+          </Text>
+        </View>
+        <Text
+          className="text-xs text-neutral-400 dark:text-neutral-500"
+        >
+          121/000001
+        </Text>
+      </View>
+      <Text
+        className="text-[15px] font-semibold text-neutral-900 dark:text-neutral-100 mb-3"
+        numberOfLines={3}
+        style={
+          {
+            "lineHeight": 22,
+          }
+        }
+      >
+        Proyecto de Ley de Presupuestos Generales del Estado para 2026
+      </Text>
+      <View
+        className="flex-row items-center gap-1.5 mb-4"
+      >
+        <Ionicons
+          color="#a3a3a3"
+          name="person-outline"
+          size={12}
+        />
+        <Text
+          className="text-xs text-neutral-400 dark:text-neutral-500 flex-1"
+          numberOfLines={1}
+        >
+          Gobierno
+        </Text>
+      </View>
+      <View
+        className="h-px bg-neutral-100 dark:bg-neutral-800 mb-3"
+      />
+      <View
+        className="flex-row items-center justify-between"
+      >
+        <View
+          className="flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
+          style={
+            {
+              "backgroundColor": "rgba(245,158,11,0.12)",
+              "maxWidth": "68%",
+            }
+          }
+        >
+          <View
+            className="w-1.5 h-1.5 rounded-full"
+            style={
+              {
+                "backgroundColor": "#f59e0b",
+              }
+            }
+          />
+          <Text
+            className="text-xs font-medium"
+            numberOfLines={1}
+            style={
+              {
+                "color": "#d97706",
+              }
+            }
+          >
+            En tramitación en Comisión
+          </Text>
+        </View>
+        <View
+          className="flex-row items-center gap-1"
+        >
+          <Ionicons
+            color="#a3a3a3"
+            name="calendar-outline"
+            size={11}
+          />
+          <Text
+            className="text-xs text-neutral-400 dark:text-neutral-500"
+          >
+            15 ene 2026
+          </Text>
+        </View>
+      </View>
+    </ViewManagerAdapter_ExpoLinearGradient>
+  </View>
+</View>
+`;
+
+exports[`InitiativeCard snapshots matches snapshot for a rejected initiative 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  className="mx-4 mb-3"
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "opacity": 1,
+      "transform": [
+        {
+          "scale": 1,
+        },
+      ],
+    }
+  }
+>
+  <View
+    className="rounded-2xl overflow-hidden bg-white dark:bg-neutral-900"
+    style={
+      {
+        "elevation": 3,
+        "shadowColor": "#5C6CFA",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 10,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "#5C6CFA",
+          "height": 3,
+        }
+      }
+    />
+    <ViewManagerAdapter_ExpoLinearGradient
+      className="p-4"
+      colors={
+        [
+          945581306,
+          0,
+        ]
+      }
+      endPoint={
+        [
+          0,
+          0.6,
+        ]
+      }
+      startPoint={
+        [
+          0,
+          0,
+        ]
+      }
+    >
+      <View
+        className="flex-row items-center justify-between mb-3"
+      >
+        <View
+          className="rounded-full px-3 py-1"
+          style={
+            {
+              "backgroundColor": "#5C6CFA24",
+            }
+          }
+        >
+          <Text
+            className="text-xs font-semibold"
+            style={
+              {
+                "color": "#5C6CFA",
+              }
+            }
+          >
+            Proyecto
+          </Text>
+        </View>
+        <Text
+          className="text-xs text-neutral-400 dark:text-neutral-500"
+        >
+          121/000001
+        </Text>
+      </View>
+      <Text
+        className="text-[15px] font-semibold text-neutral-900 dark:text-neutral-100 mb-3"
+        numberOfLines={3}
+        style={
+          {
+            "lineHeight": 22,
+          }
+        }
+      >
+        Proyecto de Ley de Presupuestos Generales del Estado para 2026
+      </Text>
+      <View
+        className="flex-row items-center gap-1.5 mb-4"
+      >
+        <Ionicons
+          color="#a3a3a3"
+          name="person-outline"
+          size={12}
+        />
+        <Text
+          className="text-xs text-neutral-400 dark:text-neutral-500 flex-1"
+          numberOfLines={1}
+        >
+          Gobierno
+        </Text>
+      </View>
+      <View
+        className="h-px bg-neutral-100 dark:bg-neutral-800 mb-3"
+      />
+      <View
+        className="flex-row items-center justify-between"
+      >
+        <View
+          className="flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
+          style={
+            {
+              "backgroundColor": "rgba(239,68,68,0.12)",
+              "maxWidth": "68%",
+            }
+          }
+        >
+          <View
+            className="w-1.5 h-1.5 rounded-full"
+            style={
+              {
+                "backgroundColor": "#ef4444",
+              }
+            }
+          />
+          <Text
+            className="text-xs font-medium"
+            numberOfLines={1}
+            style={
+              {
+                "color": "#dc2626",
+              }
+            }
+          >
+            Rechazada en Pleno
+          </Text>
+        </View>
+        <View
+          className="flex-row items-center gap-1"
+        >
+          <Ionicons
+            color="#a3a3a3"
+            name="calendar-outline"
+            size={11}
+          />
+          <Text
+            className="text-xs text-neutral-400 dark:text-neutral-500"
+          >
+            15 ene 2026
+          </Text>
+        </View>
+      </View>
+    </ViewManagerAdapter_ExpoLinearGradient>
+  </View>
+</View>
+`;
