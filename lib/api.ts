@@ -60,7 +60,6 @@ export async function apiFetch<T>(
   console.log(`[API] ${method} ${url} → ${res.status}`);
 
   if (res.status === 401) {
-    // Deduplicate concurrent refresh attempts
     if (!isRefreshing) {
       isRefreshing = true;
       refreshPromise = tryRefresh().finally(() => {
@@ -75,7 +74,6 @@ export async function apiFetch<T>(
       throw new Error(`401: ${body}`);
     }
 
-    // Retry original request with new token
     const retryRes = await fetch(url, {
       ...options,
       headers: {

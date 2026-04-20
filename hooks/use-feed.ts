@@ -2,6 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { apiFetch } from "@/lib/api";
 
 export type InitiativeType = "Proyecto" | "Proposicion";
+export type VoteChoice = "SI" | "NO" | "ABST";
 
 export interface Initiative {
   id: string;
@@ -19,6 +20,7 @@ export interface Initiative {
   closedAt: string | null;
   createdAt: string;
   updatedAt: string;
+  votedChoice: VoteChoice | null;
 }
 
 export interface FeedPage {

@@ -51,6 +51,8 @@ export default function SearchScreen() {
     setDraftDateFrom,
     draftDateTo,
     setDraftDateTo,
+    draftVotedOnly,
+    setDraftVotedOnly,
     handleApply,
     handleClearFilters,
     handleClear,
@@ -144,6 +146,15 @@ export default function SearchScreen() {
                 onPress={() => toggleDraftStatus(opt.pattern)}
               />
             ))}
+          </View>
+
+          <Text style={styles.sectionLabel}>Mis votos</Text>
+          <View className="flex-row gap-2 mb-5">
+            <PillButton
+              label="Solo votadas"
+              active={draftVotedOnly}
+              onPress={() => setDraftVotedOnly((v) => !v)}
+            />
           </View>
 
           <Text style={styles.sectionLabel}>Fecha de presentación</Text>

@@ -7,18 +7,19 @@ const LIMIT = 20;
 export interface SearchParams {
   query: string;
   type?: InitiativeType;
-  status?: string; // comma-separated ILIKE patterns
-  dateFrom?: string; // ISO yyyy-mm-dd
-  dateTo?: string; // ISO yyyy-mm-dd
+  status?: string;
+  dateFrom?: string;
+  dateTo?: string;
+  votedOnly?: boolean;
 }
 
 export function useSearch(params: SearchParams) {
-  const { query, type, status, dateFrom, dateTo } = params;
+  const { query, type, status, dateFrom, dateTo, votedOnly } = params;
   const hasQuery = query.trim().length > 0;
-  const hasFilters = !!(type || status || dateFrom || dateTo);
+  const hasFilters = !!(type || status || dateFrom || dateTo || votedOnly);
 
   return useInfiniteQuery<FeedPage>({
-    queryKey: ["search", query, type, status, dateFrom, dateTo],
+    queryKey: ["search", query, type, status, dateFrom, dateTo, votedOnly],
     queryFn: ({ pageParam }) => {
       const page = (pageParam as number) ?? 1;
       const urlParams = new URLSearchParams({
@@ -30,6 +31,7 @@ export function useSearch(params: SearchParams) {
       if (status) urlParams.set("status", status);
       if (dateFrom) urlParams.set("dateFrom", dateFrom);
       if (dateTo) urlParams.set("dateTo", dateTo);
+      if (votedOnly) urlParams.set("votedOnly", "true");
       return apiFetch<FeedPage>(`/search?${urlParams.toString()}`);
     },
     initialPageParam: 1,

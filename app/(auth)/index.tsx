@@ -7,7 +7,6 @@ export default function LandingScreen() {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 items-center justify-between px-6 py-12">
-        {/* Logo + título */}
         <View className="flex-1 items-center justify-center gap-3">
           <Image
             source={require("../../assets/images/1.png")}
@@ -19,7 +18,6 @@ export default function LandingScreen() {
           </Text>
         </View>
 
-        {/* Botones */}
         <View className="w-full gap-3">
           <Pressable
             className="w-full bg-secondary rounded-2xl py-4 items-center active:opacity-85"

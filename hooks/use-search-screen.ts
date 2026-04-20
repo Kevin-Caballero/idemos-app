@@ -25,6 +25,7 @@ interface AppliedFilters {
   statuses: Set<string>;
   dateFrom: string;
   dateTo: string;
+  votedOnly: boolean;
 }
 
 const EMPTY_FILTERS: AppliedFilters = {
@@ -32,6 +33,7 @@ const EMPTY_FILTERS: AppliedFilters = {
   statuses: new Set(),
   dateFrom: "",
   dateTo: "",
+  votedOnly: false,
 };
 
 export function useSearchScreen() {
@@ -39,15 +41,14 @@ export function useSearchScreen() {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
 
-  // Draft state — what the user is configuring in the open panel
   const [draftType, setDraftType] = useState<InitiativeType | undefined>(
     undefined,
   );
   const [draftStatuses, setDraftStatuses] = useState<Set<string>>(new Set());
   const [draftDateFrom, setDraftDateFrom] = useState("");
   const [draftDateTo, setDraftDateTo] = useState("");
+  const [draftVotedOnly, setDraftVotedOnly] = useState(false);
 
-  // Applied state — what actually drives the query
   const [applied, setApplied] = useState<AppliedFilters>(EMPTY_FILTERS);
 
   useEffect(() => {
@@ -66,6 +67,7 @@ export function useSearchScreen() {
     status: appliedStatus,
     dateFrom: applied.dateFrom ? toISO(applied.dateFrom) : undefined,
     dateTo: applied.dateTo ? toISO(applied.dateTo) : undefined,
+    votedOnly: applied.votedOnly || undefined,
   };
 
   const {
@@ -102,15 +104,17 @@ export function useSearchScreen() {
       statuses: new Set(draftStatuses),
       dateFrom: draftDateFrom,
       dateTo: draftDateTo,
+      votedOnly: draftVotedOnly,
     });
     setFilterOpen(false);
-  }, [draftType, draftStatuses, draftDateFrom, draftDateTo]);
+  }, [draftType, draftStatuses, draftDateFrom, draftDateTo, draftVotedOnly]);
 
   const handleClearFilters = useCallback(() => {
     setDraftType(undefined);
     setDraftStatuses(new Set());
     setDraftDateFrom("");
     setDraftDateTo("");
+    setDraftVotedOnly(false);
     setApplied(EMPTY_FILTERS);
     setFilterOpen(false);
   }, []);
@@ -128,7 +132,8 @@ export function useSearchScreen() {
     !!applied.type ||
     applied.statuses.size > 0 ||
     !!applied.dateFrom ||
-    !!applied.dateTo;
+    !!applied.dateTo ||
+    applied.votedOnly;
 
   return {
     inputValue,
@@ -144,6 +149,8 @@ export function useSearchScreen() {
     setDraftDateFrom,
     draftDateTo,
     setDraftDateTo,
+    draftVotedOnly,
+    setDraftVotedOnly,
     handleApply,
     handleClearFilters,
     handleClear,
