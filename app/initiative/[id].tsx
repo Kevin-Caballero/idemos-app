@@ -1,6 +1,5 @@
 import {
   ActivityIndicator,
-  Alert,
   Linking,
   ScrollView,
   Text,
@@ -12,7 +11,6 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useInitiative } from "@/hooks/use-initiative";
-import type { InitiativeDetail } from "@/hooks/use-initiative";
 import { useCastVote, useUserVote, useVoteStats } from "@/hooks/use-vote";
 import type { VoteChoice } from "@/hooks/use-vote";
 import { useVoteStore } from "@/store/vote.store";
@@ -132,6 +130,71 @@ function InfoRow({
   );
 }
 
+function VoteChart({
+  si,
+  no,
+  abst,
+  total,
+}: {
+  si: number;
+  no: number;
+  abst: number;
+  total: number;
+}) {
+  if (total === 0) return null;
+  const siPct = Math.round((si / total) * 100);
+  const noPct = Math.round((no / total) * 100);
+  const abstPct = 100 - siPct - noPct;
+
+  return (
+    <View className="mt-3">
+      <View
+        className="flex-row rounded-full overflow-hidden"
+        style={{ height: 10 }}
+      >
+        {siPct > 0 && (
+          <View style={{ flex: siPct, backgroundColor: "#10b981" }} />
+        )}
+        {noPct > 0 && (
+          <View style={{ flex: noPct, backgroundColor: "#ef4444" }} />
+        )}
+        {abstPct > 0 && (
+          <View style={{ flex: abstPct, backgroundColor: "#8b5cf6" }} />
+        )}
+      </View>
+      <View className="flex-row justify-between mt-2">
+        <View className="flex-row items-center gap-1">
+          <View
+            className="w-2 h-2 rounded-full"
+            style={{ backgroundColor: "#10b981" }}
+          />
+          <Text className="text-xs text-neutral-500 dark:text-neutral-400">
+            Sí · {siPct}%
+          </Text>
+        </View>
+        <View className="flex-row items-center gap-1">
+          <View
+            className="w-2 h-2 rounded-full"
+            style={{ backgroundColor: "#ef4444" }}
+          />
+          <Text className="text-xs text-neutral-500 dark:text-neutral-400">
+            No · {noPct}%
+          </Text>
+        </View>
+        <View className="flex-row items-center gap-1">
+          <View
+            className="w-2 h-2 rounded-full"
+            style={{ backgroundColor: "#8b5cf6" }}
+          />
+          <Text className="text-xs text-neutral-500 dark:text-neutral-400">
+            Abst · {abstPct}%
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+}
+
 export default function InitiativeDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
@@ -143,7 +206,6 @@ export default function InitiativeDetailScreen() {
 
   const activeChoice: VoteChoice | null =
     optimisticVote ?? userVote?.choice ?? null;
-  const hasVoted = !!activeChoice;
 
   const config = initiative?.type
     ? (TYPE_CONFIG[initiative.type] ?? TYPE_CONFIG.Proyecto)
@@ -309,9 +371,15 @@ export default function InitiativeDetailScreen() {
                   Resumen neutral generado por IA
                 </Text>
               </View>
-              <Text className="text-sm text-neutral-400 dark:text-neutral-500 italic">
-                El resumen automático estará disponible próximamente.
-              </Text>
+              {initiative.summary?.content ? (
+                <Text className="text-sm text-neutral-700 dark:text-neutral-300 leading-5">
+                  {initiative.summary.content}
+                </Text>
+              ) : (
+                <Text className="text-sm text-neutral-400 dark:text-neutral-500 italic">
+                  El resumen automático estará disponible próximamente.
+                </Text>
+              )}
             </View>
           </View>
         </SectionCard>
@@ -521,52 +589,77 @@ export default function InitiativeDetailScreen() {
             </View>
 
             {voteStats && voteStats.total > 0 && (
-              <Text className="text-xs text-neutral-400 dark:text-neutral-500 text-center mt-3">
-                {voteStats.total}{" "}
-                {voteStats.total === 1 ? "voto ciudadano" : "votos ciudadanos"}
-              </Text>
-            )}
-
-            {voteStats?.officialYes != null && (
-              <View
-                className="mt-4 rounded-xl p-3"
-                style={{ backgroundColor: BrandColors.primary + "10" }}
-              >
-                <Text
-                  className="text-xs font-semibold mb-2"
-                  style={{ color: BrandColors.primary }}
-                >
-                  Votación oficial en el Congreso
+              <>
+                <Text className="text-xs text-neutral-400 dark:text-neutral-500 text-center mt-3">
+                  {voteStats.total}{" "}
+                  {voteStats.total === 1
+                    ? "voto ciudadano"
+                    : "votos ciudadanos"}
                 </Text>
-                <View className="flex-row justify-around">
-                  <View className="items-center">
-                    <Text className="text-base font-bold text-emerald-600">
-                      {voteStats.officialYes}
-                    </Text>
-                    <Text className="text-xs text-neutral-400">A favor</Text>
-                  </View>
-                  <View className="items-center">
-                    <Text className="text-base font-bold text-red-500">
-                      {voteStats.officialNo}
-                    </Text>
-                    <Text className="text-xs text-neutral-400">En contra</Text>
-                  </View>
-                  <View className="items-center">
-                    <Text className="text-base font-bold text-violet-500">
-                      {voteStats.officialAbst}
-                    </Text>
-                    <Text className="text-xs text-neutral-400">Abstención</Text>
-                  </View>
-                </View>
-                {voteStats.officialVotedAt && (
-                  <Text className="text-xs text-neutral-400 text-center mt-2">
-                    Votado el {formatDate(voteStats.officialVotedAt)}
-                  </Text>
-                )}
-              </View>
+                <VoteChart
+                  si={voteStats.si}
+                  no={voteStats.no}
+                  abst={voteStats.abst}
+                  total={voteStats.total}
+                />
+              </>
             )}
           </View>
         </SectionCard>
+
+        {voteStats?.officialYes != null && (
+          <SectionCard>
+            <SectionHeader
+              icon="people-outline"
+              title="Votación parlamentaria"
+            />
+            <View className="px-4 pb-4">
+              {voteStats.officialVotedAt && (
+                <Text className="text-xs text-neutral-400 dark:text-neutral-500 mb-3">
+                  Votado el {formatDate(voteStats.officialVotedAt)}
+                </Text>
+              )}
+              <View className="flex-row justify-around">
+                <View className="items-center flex-1">
+                  <Text className="text-2xl font-bold text-emerald-600">
+                    {voteStats.officialYes}
+                  </Text>
+                  <Text className="text-xs text-neutral-400 mt-0.5">
+                    A favor
+                  </Text>
+                </View>
+                <View className="w-px" style={{ backgroundColor: "#e5e5e5" }} />
+                <View className="items-center flex-1">
+                  <Text className="text-2xl font-bold text-red-500">
+                    {voteStats.officialNo}
+                  </Text>
+                  <Text className="text-xs text-neutral-400 mt-0.5">
+                    En contra
+                  </Text>
+                </View>
+                <View className="w-px" style={{ backgroundColor: "#e5e5e5" }} />
+                <View className="items-center flex-1">
+                  <Text className="text-2xl font-bold text-violet-500">
+                    {voteStats.officialAbst}
+                  </Text>
+                  <Text className="text-xs text-neutral-400 mt-0.5">
+                    Abstención
+                  </Text>
+                </View>
+              </View>
+              <VoteChart
+                si={voteStats.officialYes ?? 0}
+                no={voteStats.officialNo ?? 0}
+                abst={voteStats.officialAbst ?? 0}
+                total={
+                  (voteStats.officialYes ?? 0) +
+                  (voteStats.officialNo ?? 0) +
+                  (voteStats.officialAbst ?? 0)
+                }
+              />
+            </View>
+          </SectionCard>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

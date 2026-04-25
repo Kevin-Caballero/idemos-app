@@ -18,9 +18,17 @@ export interface InitiativeLink {
   label: string | null;
 }
 
+export interface InitiativeSummary {
+  id: string;
+  content: string;
+  model: string;
+  createdAt: string;
+}
+
 export interface InitiativeDetail extends Initiative {
   steps: InitiativeStep[];
   links: InitiativeLink[];
+  summary: InitiativeSummary | null;
 }
 
 export function useInitiative(id: string) {

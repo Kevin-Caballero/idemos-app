@@ -2,9 +2,7 @@ import { useAuthStore } from "@/store/auth.store";
 
 const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "";
 
-console.log(
-  `[API] Base URL: ${BASE_URL || "(empty — check EXPO_PUBLIC_API_URL)"}`,
-);
+console.log(`[API] Base URL: ${BASE_URL || "(empty — check EXPO_PUBLIC_API_URL)"}`);
 
 let isRefreshing = false;
 let refreshPromise: Promise<string | null> | null = null;

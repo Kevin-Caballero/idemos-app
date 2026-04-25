@@ -6,7 +6,6 @@ import Animated, {
   FadeInDown,
 } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import type { Initiative, InitiativeType } from "@/hooks/use-feed";
 import { BrandColors } from "@/constants/theme";
@@ -15,26 +14,22 @@ import { useVoteStore } from "@/store/vote.store";
 type TypeConfig = {
   label: string;
   accentColor: string;
-  gradientStart: string;
   badgeBg: string;
   badgeText: string;
 };
 
-const ALPHA_GRADIENT = "38";
 const ALPHA_BADGE = "24";
 
 const TYPE_CONFIG: Record<InitiativeType, TypeConfig> = {
   Proyecto: {
     label: "Proyecto",
     accentColor: BrandColors.primary,
-    gradientStart: BrandColors.primary + ALPHA_GRADIENT,
     badgeBg: BrandColors.primary + ALPHA_BADGE,
     badgeText: BrandColors.primary,
   },
   Proposicion: {
     label: "Proposición",
     accentColor: BrandColors.secondary,
-    gradientStart: BrandColors.secondary + ALPHA_GRADIENT,
     badgeBg: BrandColors.secondary + ALPHA_BADGE,
     badgeText: BrandColors.secondary,
   },
@@ -152,102 +147,102 @@ export function InitiativeCard({
               elevation: 3,
             }}
           >
-            <View style={{ height: 3, backgroundColor: config.accentColor }} />
-
-            <LinearGradient
-              colors={[config.gradientStart, "transparent"]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 0.6 }}
-              className="p-4"
-            >
-              <View className="flex-row items-center justify-between mb-3">
-                <View className="flex-row items-center gap-2">
-                  <View
-                    className="rounded-full px-3 py-1"
-                    style={{ backgroundColor: config.badgeBg }}
-                  >
-                    <Text
-                      className="text-xs font-semibold"
-                      style={{ color: config.badgeText }}
-                    >
-                      {config.label}
-                    </Text>
-                  </View>
-                  {votedChoice && (
+            <View className="flex-row">
+              <View style={{ width: 4, backgroundColor: config.accentColor }} />
+              <View className="flex-1 p-4">
+                <View className="flex-row items-center justify-between mb-3">
+                  <View className="flex-row items-center gap-2">
                     <View
-                      className="flex-row items-center gap-1 rounded-full px-2 py-0.5"
-                      style={{
-                        backgroundColor: VOTE_BADGE[votedChoice].color + "20",
-                      }}
+                      className="rounded-full px-3 py-1"
+                      style={{ backgroundColor: config.badgeBg }}
                     >
-                      <Ionicons
-                        name="checkmark-circle"
-                        size={11}
-                        color={VOTE_BADGE[votedChoice].color}
-                      />
                       <Text
-                        className="text-xs font-medium"
-                        style={{ color: VOTE_BADGE[votedChoice].color }}
+                        className="text-xs font-semibold"
+                        style={{ color: config.badgeText }}
                       >
-                        {VOTE_BADGE[votedChoice].label}
+                        {config.label}
                       </Text>
                     </View>
-                  )}
+                    {votedChoice && (
+                      <View
+                        className="flex-row items-center gap-1 rounded-full px-2 py-0.5"
+                        style={{
+                          backgroundColor: VOTE_BADGE[votedChoice].color + "20",
+                        }}
+                      >
+                        <Ionicons
+                          name="checkmark-circle"
+                          size={11}
+                          color={VOTE_BADGE[votedChoice].color}
+                        />
+                        <Text
+                          className="text-xs font-medium"
+                          style={{ color: VOTE_BADGE[votedChoice].color }}
+                        >
+                          {VOTE_BADGE[votedChoice].label}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                  <Text className="text-xs text-neutral-400 dark:text-neutral-500">
+                    {initiative.expediente}
+                  </Text>
                 </View>
-                <Text className="text-xs text-neutral-400 dark:text-neutral-500">
-                  {initiative.expediente}
-                </Text>
-              </View>
 
-              <Text
-                className="text-[15px] font-semibold text-neutral-900 dark:text-neutral-100 mb-3"
-                style={{ lineHeight: 22 }}
-                numberOfLines={3}
-              >
-                {initiative.title}
-              </Text>
-
-              <View className="flex-row items-center gap-1.5 mb-4">
-                <Ionicons name="person-outline" size={12} color="#a3a3a3" />
                 <Text
-                  className="text-xs text-neutral-400 dark:text-neutral-500 flex-1"
-                  numberOfLines={1}
+                  className="text-[15px] font-semibold text-neutral-900 dark:text-neutral-100 mb-3"
+                  style={{ lineHeight: 22 }}
+                  numberOfLines={3}
                 >
-                  {initiative.author}
+                  {initiative.title}
                 </Text>
-              </View>
 
-              <View className="h-px bg-neutral-100 dark:bg-neutral-800 mb-3" />
-
-              <View className="flex-row items-center justify-between">
-                <View
-                  className="flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
-                  style={{
-                    backgroundColor: statusStyle.bg,
-                    maxWidth: "68%",
-                  }}
-                >
-                  <View
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ backgroundColor: statusStyle.dot }}
-                  />
+                <View className="flex-row items-center gap-1.5 mb-4">
+                  <Ionicons name="person-outline" size={12} color="#a3a3a3" />
                   <Text
-                    className="text-xs font-medium"
-                    style={{ color: statusStyle.text }}
+                    className="text-xs text-neutral-400 dark:text-neutral-500 flex-1"
                     numberOfLines={1}
                   >
-                    {initiative.currentStatus}
+                    {initiative.author}
                   </Text>
                 </View>
 
-                <View className="flex-row items-center gap-1">
-                  <Ionicons name="calendar-outline" size={11} color="#a3a3a3" />
-                  <Text className="text-xs text-neutral-400 dark:text-neutral-500">
-                    {formatDate(initiative.presentedAt)}
-                  </Text>
+                <View className="h-px bg-neutral-100 dark:bg-neutral-800 mb-3" />
+
+                <View className="flex-row items-center justify-between">
+                  <View
+                    className="flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
+                    style={{
+                      backgroundColor: statusStyle.bg,
+                      maxWidth: "68%",
+                    }}
+                  >
+                    <View
+                      className="w-1.5 h-1.5 rounded-full"
+                      style={{ backgroundColor: statusStyle.dot }}
+                    />
+                    <Text
+                      className="text-xs font-medium"
+                      style={{ color: statusStyle.text }}
+                      numberOfLines={1}
+                    >
+                      {initiative.currentStatus}
+                    </Text>
+                  </View>
+
+                  <View className="flex-row items-center gap-1">
+                    <Ionicons
+                      name="calendar-outline"
+                      size={11}
+                      color="#a3a3a3"
+                    />
+                    <Text className="text-xs text-neutral-400 dark:text-neutral-500">
+                      {formatDate(initiative.presentedAt)}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </LinearGradient>
+            </View>
           </View>
         </Animated.View>
       </Pressable>
