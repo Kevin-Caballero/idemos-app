@@ -11,10 +11,12 @@ export interface SearchParams {
   dateFrom?: string;
   dateTo?: string;
   votedOnly?: boolean;
+  hasApplied?: boolean;
 }
 
 export function useSearch(params: SearchParams) {
-  const { query, type, status, dateFrom, dateTo, votedOnly } = params;
+  const { query, type, status, dateFrom, dateTo, votedOnly, hasApplied } =
+    params;
   const hasQuery = query.trim().length > 0;
   const hasFilters = !!(type || status || dateFrom || dateTo || votedOnly);
 
@@ -40,6 +42,6 @@ export function useSearch(params: SearchParams) {
         (lastPage.page - 1) * lastPage.limit + lastPage.data.length;
       return fetched < lastPage.total ? lastPage.page + 1 : undefined;
     },
-    enabled: hasQuery || hasFilters,
+    enabled: hasQuery || hasFilters || !!hasApplied,
   });
 }

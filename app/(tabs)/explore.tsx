@@ -64,9 +64,11 @@ export default function SearchScreen() {
     isFetchingNextPage,
     refetch,
     hasActiveFilters,
+    hasApplied,
   } = useSearchScreen();
 
-  const showResults = debouncedQuery.trim().length > 0 || hasActiveFilters;
+  const showResults =
+    debouncedQuery.trim().length > 0 || hasActiveFilters || hasApplied;
 
   return (
     <SafeAreaView

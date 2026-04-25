@@ -50,6 +50,7 @@ export function useSearchScreen() {
   const [draftVotedOnly, setDraftVotedOnly] = useState(false);
 
   const [applied, setApplied] = useState<AppliedFilters>(EMPTY_FILTERS);
+  const [hasApplied, setHasApplied] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedQuery(inputValue), DEBOUNCE_MS);
@@ -68,6 +69,7 @@ export function useSearchScreen() {
     dateFrom: applied.dateFrom ? toISO(applied.dateFrom) : undefined,
     dateTo: applied.dateTo ? toISO(applied.dateTo) : undefined,
     votedOnly: applied.votedOnly || undefined,
+    hasApplied,
   };
 
   const {
@@ -106,6 +108,7 @@ export function useSearchScreen() {
       dateTo: draftDateTo,
       votedOnly: draftVotedOnly,
     });
+    setHasApplied(true);
     setFilterOpen(false);
   }, [draftType, draftStatuses, draftDateFrom, draftDateTo, draftVotedOnly]);
 
@@ -116,6 +119,7 @@ export function useSearchScreen() {
     setDraftDateTo("");
     setDraftVotedOnly(false);
     setApplied(EMPTY_FILTERS);
+    setHasApplied(false);
     setFilterOpen(false);
   }, []);
 
@@ -162,5 +166,6 @@ export function useSearchScreen() {
     isFetchingNextPage,
     refetch,
     hasActiveFilters,
+    hasApplied,
   };
 }
