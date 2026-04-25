@@ -27,9 +27,17 @@ function PillButton({
   return (
     <Pressable
       onPress={onPress}
-      style={[styles.pill, active && styles.pillActive]}
+      className={`rounded-full border h-[34px] px-[14px] items-center justify-center ${
+        active
+          ? "bg-primary border-primary"
+          : "bg-transparent border-neutral-300 dark:border-neutral-600"
+      }`}
     >
-      <Text style={[styles.pillLabel, active && styles.pillLabelActive]}>
+      <Text
+        className={`text-[13px] font-medium ${
+          active ? "text-white" : "text-neutral-600 dark:text-neutral-300"
+        }`}
+      >
         {label}
       </Text>
     </Pressable>
@@ -102,10 +110,11 @@ export default function SearchScreen() {
           <View>
             <Pressable
               onPress={toggleFilter}
-              style={[
-                styles.filterBtn,
-                (filterOpen || hasActiveFilters) && styles.filterBtnActive,
-              ]}
+              className={`w-11 h-11 rounded-xl border items-center justify-center ${
+                filterOpen || hasActiveFilters
+                  ? "bg-primary border-primary"
+                  : "bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700"
+              }`}
             >
               <Ionicons
                 name="options-outline"
@@ -125,8 +134,10 @@ export default function SearchScreen() {
       </View>
 
       {filterOpen && (
-        <View style={styles.panel}>
-          <Text style={styles.sectionLabel}>Tipo</Text>
+        <View className="bg-white dark:bg-neutral-900 px-4 pt-4 pb-5 border-b border-neutral-100 dark:border-neutral-800">
+          <Text className="text-[11px] font-bold text-primary uppercase tracking-widest mb-[10px]">
+            Tipo
+          </Text>
           <View className="flex-row gap-2 mb-5">
             {(["Proyecto", "Proposicion"] as InitiativeType[]).map((t) => (
               <PillButton
@@ -138,7 +149,9 @@ export default function SearchScreen() {
             ))}
           </View>
 
-          <Text style={styles.sectionLabel}>Estado / Fase</Text>
+          <Text className="text-[11px] font-bold text-primary uppercase tracking-widest mb-[10px]">
+            Estado / Fase
+          </Text>
           <View className="flex-row flex-wrap gap-2 mb-5">
             {STATUS_OPTIONS.map((opt) => (
               <PillButton
@@ -150,7 +163,9 @@ export default function SearchScreen() {
             ))}
           </View>
 
-          <Text style={styles.sectionLabel}>Mis votos</Text>
+          <Text className="text-[11px] font-bold text-primary uppercase tracking-widest mb-[10px]">
+            Mis votos
+          </Text>
           <View className="flex-row gap-2 mb-5">
             <PillButton
               label="Solo votadas"
@@ -159,12 +174,14 @@ export default function SearchScreen() {
             />
           </View>
 
-          <Text style={styles.sectionLabel}>Fecha de presentación</Text>
+          <Text className="text-[11px] font-bold text-primary uppercase tracking-widest mb-[10px]">
+            Fecha de presentación
+          </Text>
           <View className="flex-row gap-3 mb-5">
             <View className="flex-1">
               <Text className="text-xs text-neutral-400 mb-1.5">Desde</Text>
               <TextInput
-                style={styles.dateInput}
+                className="border border-neutral-200 dark:border-neutral-700 rounded-xl px-3 h-11 text-sm text-neutral-900 dark:text-neutral-100 bg-neutral-50 dark:bg-neutral-800"
                 placeholder="dd/mm/aaaa"
                 placeholderTextColor="#a3a3a3"
                 value={draftDateFrom}
@@ -175,7 +192,7 @@ export default function SearchScreen() {
             <View className="flex-1">
               <Text className="text-xs text-neutral-400 mb-1.5">Hasta</Text>
               <TextInput
-                style={styles.dateInput}
+                className="border border-neutral-200 dark:border-neutral-700 rounded-xl px-3 h-11 text-sm text-neutral-900 dark:text-neutral-100 bg-neutral-50 dark:bg-neutral-800"
                 placeholder="dd/mm/aaaa"
                 placeholderTextColor="#a3a3a3"
                 value={draftDateTo}
@@ -188,15 +205,17 @@ export default function SearchScreen() {
           <View className="flex-row gap-3">
             <Pressable
               onPress={handleApply}
-              style={[styles.actionBtn, styles.actionBtnPrimary]}
+              className="flex-1 rounded-xl py-[14px] items-center bg-primary active:opacity-80"
             >
-              <Text style={styles.actionBtnPrimaryText}>Aplicar</Text>
+              <Text className="text-white text-sm font-semibold">Aplicar</Text>
             </Pressable>
             <Pressable
               onPress={handleClearFilters}
-              style={[styles.actionBtn, styles.actionBtnSecondary]}
+              className="flex-1 rounded-xl py-[14px] items-center border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 active:opacity-70"
             >
-              <Text style={styles.actionBtnSecondaryText}>Limpiar</Text>
+              <Text className="text-neutral-600 dark:text-neutral-300 text-sm font-medium">
+                Limpiar
+              </Text>
             </Pressable>
           </View>
         </View>
@@ -263,20 +282,6 @@ export default function SearchScreen() {
 }
 
 const styles = StyleSheet.create({
-  filterBtn: {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
-    backgroundColor: "#ffffff",
-    borderWidth: 1,
-    borderColor: "#e5e5e5",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  filterBtnActive: {
-    backgroundColor: BrandColors.primary,
-    borderWidth: 0,
-  },
   filterDot: {
     position: "absolute",
     top: 6,
@@ -287,77 +292,5 @@ const styles = StyleSheet.create({
     backgroundColor: BrandColors.secondary,
     borderWidth: 1.5,
     borderColor: "#f5f5f5",
-  },
-  panel: {
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
-  },
-  sectionLabel: {
-    fontSize: 11,
-    fontWeight: "700",
-    color: BrandColors.primary,
-    letterSpacing: 0.8,
-    textTransform: "uppercase",
-    marginBottom: 10,
-  },
-  pill: {
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: "#d4d4d4",
-    paddingHorizontal: 14,
-    height: 34,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-  },
-  pillActive: {
-    backgroundColor: BrandColors.primary,
-    borderColor: BrandColors.primary,
-  },
-  pillLabel: {
-    fontSize: 13,
-    fontWeight: "500",
-    color: "#525252",
-  },
-  pillLabelActive: {
-    color: "#ffffff",
-  },
-  dateInput: {
-    borderWidth: 1,
-    borderColor: "#e5e5e5",
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    height: 44,
-    fontSize: 14,
-    color: "#171717",
-    backgroundColor: "#fafafa",
-  },
-  actionBtn: {
-    flex: 1,
-    borderRadius: 12,
-    paddingVertical: 14,
-    alignItems: "center",
-  },
-  actionBtnPrimary: {
-    backgroundColor: BrandColors.primary,
-  },
-  actionBtnPrimaryText: {
-    color: "#ffffff",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-  actionBtnSecondary: {
-    borderWidth: 1,
-    borderColor: "#e5e5e5",
-    backgroundColor: "#ffffff",
-  },
-  actionBtnSecondaryText: {
-    color: "#525252",
-    fontSize: 14,
-    fontWeight: "600",
   },
 });
