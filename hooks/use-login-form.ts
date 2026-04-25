@@ -32,7 +32,11 @@ export function useLoginForm() {
         setError(data.message ?? "Credenciales incorrectas.");
         return;
       }
-      await setTokens(data.accessToken, data.refreshToken);
+      await setTokens(
+        data.accessToken,
+        data.refreshToken,
+        email.trim().toLowerCase(),
+      );
       router.replace("/(tabs)");
     } catch (err) {
       console.error("[LOGIN] catch:", err);
