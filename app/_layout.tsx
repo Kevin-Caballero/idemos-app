@@ -13,6 +13,7 @@ import "./global.css";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useAppInit } from "@/hooks/use-app-init";
 import { usePreferencesStore } from "@/store/preferences.store";
+import { useFollowNotifications } from "@/hooks/use-follow-notifications";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ export default function RootLayout() {
   const systemScheme = useColorScheme();
   const { isAuthenticated, isLoading } = useAppInit();
   const { theme, loadPreferences } = usePreferencesStore();
+  useFollowNotifications();
 
   useEffect(() => {
     loadPreferences();
