@@ -6,34 +6,30 @@ import Animated, {
   FadeInDown,
 } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import type { Initiative, InitiativeType } from "@/hooks/use-feed";
 import { BrandColors } from "@/constants/theme";
+import { useVoteStore } from "@/store/vote.store";
 
 type TypeConfig = {
   label: string;
   accentColor: string;
-  gradientStart: string;
   badgeBg: string;
   badgeText: string;
 };
 
-// Hex alpha suffix: ~22% for gradient top, ~14% for badge background
-const ALPHA_GRADIENT = "38";
 const ALPHA_BADGE = "24";
 
 const TYPE_CONFIG: Record<InitiativeType, TypeConfig> = {
   Proyecto: {
     label: "Proyecto",
     accentColor: BrandColors.primary,
-    gradientStart: BrandColors.primary + ALPHA_GRADIENT,
     badgeBg: BrandColors.primary + ALPHA_BADGE,
     badgeText: BrandColors.primary,
   },
   Proposicion: {
     label: "Proposición",
     accentColor: BrandColors.secondary,
-    gradientStart: BrandColors.secondary + ALPHA_GRADIENT,
     badgeBg: BrandColors.secondary + ALPHA_BADGE,
     badgeText: BrandColors.secondary,
   },
@@ -99,18 +95,32 @@ function formatDate(dateStr: string): string {
   });
 }
 
+const VOTE_BADGE: Record<string, { label: string; color: string }> = {
+  SI: { label: "Votado: Sí", color: "#10b981" },
+  NO: { label: "Votado: No", color: "#ef4444" },
+  ABST: { label: "Votado: Abstención", color: "#8b5cf6" },
+};
+
 export function InitiativeCard({
   initiative,
   onPress,
   index = 0,
 }: InitiativeCardProps) {
+  const router = useRouter();
   const config = TYPE_CONFIG[initiative.type] ?? TYPE_CONFIG.Proyecto;
   const statusStyle = getStatusStyle(initiative.currentStatus);
+  const optimisticChoice = useVoteStore(
+    (s) => s.optimisticVotes[initiative.id],
+  );
+  const votedChoice = optimisticChoice ?? initiative.votedChoice ?? null;
 
   const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
+
+  const handlePress =
+    onPress ?? (() => router.push(`/initiative/${initiative.id}`));
 
   return (
     <Animated.View
@@ -118,7 +128,7 @@ export function InitiativeCard({
       className="mx-4 mb-3"
     >
       <Pressable
-        onPress={onPress}
+        onPress={handlePress}
         onPressIn={() => {
           scale.value = withTiming(0.97, { duration: 100 });
         }}
@@ -137,87 +147,102 @@ export function InitiativeCard({
               elevation: 3,
             }}
           >
-            {/* Coloured top border */}
-            <View style={{ height: 3, backgroundColor: config.accentColor }} />
-
-            {/* Gradient fills the card from accent colour (top) to plain white (bottom) */}
-            <LinearGradient
-              colors={[config.gradientStart, "transparent"]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 0.6 }}
-              className="p-4"
-            >
-              {/* Header row: type badge + expediente */}
-              <View className="flex-row items-center justify-between mb-3">
-                <View
-                  className="rounded-full px-3 py-1"
-                  style={{ backgroundColor: config.badgeBg }}
-                >
-                  <Text
-                    className="text-xs font-semibold"
-                    style={{ color: config.badgeText }}
-                  >
-                    {config.label}
+            <View className="flex-row">
+              <View style={{ width: 4, backgroundColor: config.accentColor }} />
+              <View className="flex-1 p-4">
+                <View className="flex-row items-center justify-between mb-3">
+                  <View className="flex-row items-center gap-2">
+                    <View
+                      className="rounded-full px-3 py-1"
+                      style={{ backgroundColor: config.badgeBg }}
+                    >
+                      <Text
+                        className="text-xs font-semibold"
+                        style={{ color: config.badgeText }}
+                      >
+                        {config.label}
+                      </Text>
+                    </View>
+                    {votedChoice && (
+                      <View
+                        className="flex-row items-center gap-1 rounded-full px-2 py-0.5"
+                        style={{
+                          backgroundColor: VOTE_BADGE[votedChoice].color + "20",
+                        }}
+                      >
+                        <Ionicons
+                          name="checkmark-circle"
+                          size={11}
+                          color={VOTE_BADGE[votedChoice].color}
+                        />
+                        <Text
+                          className="text-xs font-medium"
+                          style={{ color: VOTE_BADGE[votedChoice].color }}
+                        >
+                          {VOTE_BADGE[votedChoice].label}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                  <Text className="text-xs text-neutral-400 dark:text-neutral-500">
+                    {initiative.expediente}
                   </Text>
                 </View>
-                <Text className="text-xs text-neutral-400 dark:text-neutral-500">
-                  {initiative.expediente}
-                </Text>
-              </View>
 
-              {/* Title */}
-              <Text
-                className="text-[15px] font-semibold text-neutral-900 dark:text-neutral-100 mb-3"
-                style={{ lineHeight: 22 }}
-                numberOfLines={3}
-              >
-                {initiative.title}
-              </Text>
-
-              {/* Author */}
-              <View className="flex-row items-center gap-1.5 mb-4">
-                <Ionicons name="person-outline" size={12} color="#a3a3a3" />
                 <Text
-                  className="text-xs text-neutral-400 dark:text-neutral-500 flex-1"
-                  numberOfLines={1}
+                  className="text-[15px] font-semibold text-neutral-900 dark:text-neutral-100 mb-3"
+                  style={{ lineHeight: 22 }}
+                  numberOfLines={3}
                 >
-                  {initiative.author}
+                  {initiative.title}
                 </Text>
-              </View>
 
-              {/* Divider */}
-              <View className="h-px bg-neutral-100 dark:bg-neutral-800 mb-3" />
-
-              {/* Footer: status pill + date */}
-              <View className="flex-row items-center justify-between">
-                <View
-                  className="flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
-                  style={{
-                    backgroundColor: statusStyle.bg,
-                    maxWidth: "68%",
-                  }}
-                >
-                  <View
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ backgroundColor: statusStyle.dot }}
-                  />
+                <View className="flex-row items-center gap-1.5 mb-4">
+                  <Ionicons name="person-outline" size={12} color="#a3a3a3" />
                   <Text
-                    className="text-xs font-medium"
-                    style={{ color: statusStyle.text }}
+                    className="text-xs text-neutral-400 dark:text-neutral-500 flex-1"
                     numberOfLines={1}
                   >
-                    {initiative.currentStatus}
+                    {initiative.author}
                   </Text>
                 </View>
 
-                <View className="flex-row items-center gap-1">
-                  <Ionicons name="calendar-outline" size={11} color="#a3a3a3" />
-                  <Text className="text-xs text-neutral-400 dark:text-neutral-500">
-                    {formatDate(initiative.presentedAt)}
-                  </Text>
+                <View className="h-px bg-neutral-100 dark:bg-neutral-800 mb-3" />
+
+                <View className="flex-row items-center justify-between">
+                  <View
+                    className="flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
+                    style={{
+                      backgroundColor: statusStyle.bg,
+                      maxWidth: "68%",
+                    }}
+                  >
+                    <View
+                      className="w-1.5 h-1.5 rounded-full"
+                      style={{ backgroundColor: statusStyle.dot }}
+                    />
+                    <Text
+                      className="text-xs font-medium"
+                      style={{ color: statusStyle.text }}
+                      numberOfLines={1}
+                    >
+                      {initiative.currentStatus}
+                    </Text>
+                  </View>
+
+                  <View className="flex-row items-center gap-1">
+                    <Ionicons
+                      name="calendar-outline"
+                      size={11}
+                      color="#a3a3a3"
+                    />
+                    <Text className="text-xs text-neutral-400 dark:text-neutral-500">
+                      {formatDate(initiative.presentedAt)}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </LinearGradient>
+            </View>
           </View>
         </Animated.View>
       </Pressable>
