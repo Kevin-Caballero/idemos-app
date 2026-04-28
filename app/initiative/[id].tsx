@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,7 +14,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useInitiative } from "@/hooks/use-initiative";
 import { useCastVote, useUserVote, useVoteStats } from "@/hooks/use-vote";
 import type { VoteChoice } from "@/hooks/use-vote";
+import { useIsFollowing, useToggleFollow } from "@/hooks/use-follow";
 import { useVoteStore } from "@/store/vote.store";
+import { useFollowStatusStore } from "@/store/follow-status.store";
 import { BrandColors } from "@/constants/theme";
 import type { InitiativeType } from "@/hooks/use-feed";
 
@@ -203,6 +206,19 @@ export default function InitiativeDetailScreen() {
   const { data: voteStats } = useVoteStats(id ?? "");
   const { mutate: castVote, isPending: isCasting } = useCastVote(id ?? "");
   const optimisticVote = useVoteStore((s) => s.optimisticVotes[id ?? ""]);
+  const { data: followData } = useIsFollowing(id ?? "");
+  const { mutate: toggleFollow, isPending: isToggling } = useToggleFollow(
+    id ?? "",
+  );
+  const isFollowing = followData?.following ?? false;
+  const { update: markStatusSeen } = useFollowStatusStore();
+
+  // Mark status as seen when entering the detail
+  useEffect(() => {
+    if (initiative?.id && initiative?.currentStatus) {
+      void markStatusSeen(initiative.id, initiative.currentStatus);
+    }
+  }, [initiative?.id, initiative?.currentStatus, markStatusSeen]);
 
   const activeChoice: VoteChoice | null =
     optimisticVote ?? userVote?.choice ?? null;
@@ -300,9 +316,14 @@ export default function InitiativeDetailScreen() {
             {initiative.expediente}
           </Text>
 
-          <TouchableOpacity hitSlop={8}>
+          <TouchableOpacity
+            hitSlop={8}
+            onPress={() => toggleFollow()}
+            disabled={isToggling}
+            style={{ opacity: isToggling ? 0.5 : 1 }}
+          >
             <Ionicons
-              name="star-outline"
+              name={isFollowing ? "star" : "star-outline"}
               size={22}
               color={BrandColors.primary}
             />
