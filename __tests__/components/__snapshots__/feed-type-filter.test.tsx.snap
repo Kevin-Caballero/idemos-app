@@ -33,6 +33,32 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proposicion" selected 1
     accessible={true}
     collapsable={false}
     focusable={true}
+    jestAnimatedProps={
+      {
+        "value": {},
+      }
+    }
+    jestAnimatedStyle={
+      {
+        "value": {
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
+        },
+      }
+    }
+    jestInlineStyle={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 999,
+          "borderWidth": 1,
+          "height": 34,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+    nativeID="66"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -53,13 +79,37 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proposicion" selected 1
           "paddingHorizontal": 16,
         },
         {
-          "backgroundColor": "transparent",
-          "borderColor": "#5C6CFA",
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
         },
       ]
     }
   >
     <Text
+      collapsable={false}
+      jestAnimatedProps={
+        {
+          "value": {},
+        }
+      }
+      jestAnimatedStyle={
+        {
+          "value": {
+            "color": "rgba(92, 108, 250, 1)",
+          },
+        }
+      }
+      jestInlineStyle={
+        [
+          {
+            "fontSize": 12,
+            "fontWeight": "600",
+            "includeFontPadding": false,
+            "lineHeight": 14,
+          },
+        ]
+      }
+      nativeID="67"
       style={
         [
           {
@@ -69,7 +119,7 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proposicion" selected 1
             "lineHeight": 14,
           },
           {
-            "color": "#5C6CFA",
+            "color": "rgba(92, 108, 250, 1)",
           },
         ]
       }
@@ -98,6 +148,32 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proposicion" selected 1
     accessible={true}
     collapsable={false}
     focusable={true}
+    jestAnimatedProps={
+      {
+        "value": {},
+      }
+    }
+    jestAnimatedStyle={
+      {
+        "value": {
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
+        },
+      }
+    }
+    jestInlineStyle={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 999,
+          "borderWidth": 1,
+          "height": 34,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+    nativeID="68"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -118,13 +194,37 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proposicion" selected 1
           "paddingHorizontal": 16,
         },
         {
-          "backgroundColor": "transparent",
-          "borderColor": "#5C6CFA",
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
         },
       ]
     }
   >
     <Text
+      collapsable={false}
+      jestAnimatedProps={
+        {
+          "value": {},
+        }
+      }
+      jestAnimatedStyle={
+        {
+          "value": {
+            "color": "rgba(92, 108, 250, 1)",
+          },
+        }
+      }
+      jestInlineStyle={
+        [
+          {
+            "fontSize": 12,
+            "fontWeight": "600",
+            "includeFontPadding": false,
+            "lineHeight": 14,
+          },
+        ]
+      }
+      nativeID="69"
       style={
         [
           {
@@ -134,7 +234,7 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proposicion" selected 1
             "lineHeight": 14,
           },
           {
-            "color": "#5C6CFA",
+            "color": "rgba(92, 108, 250, 1)",
           },
         ]
       }
@@ -163,6 +263,32 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proposicion" selected 1
     accessible={true}
     collapsable={false}
     focusable={true}
+    jestAnimatedProps={
+      {
+        "value": {},
+      }
+    }
+    jestAnimatedStyle={
+      {
+        "value": {
+          "backgroundColor": "rgba(255, 122, 110, 1)",
+          "borderColor": "rgba(255, 122, 110, 1)",
+        },
+      }
+    }
+    jestInlineStyle={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 999,
+          "borderWidth": 1,
+          "height": 34,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+    nativeID="70"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -183,13 +309,37 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proposicion" selected 1
           "paddingHorizontal": 16,
         },
         {
-          "backgroundColor": "#FF7A6E",
-          "borderColor": "#FF7A6E",
+          "backgroundColor": "rgba(255, 122, 110, 1)",
+          "borderColor": "rgba(255, 122, 110, 1)",
         },
       ]
     }
   >
     <Text
+      collapsable={false}
+      jestAnimatedProps={
+        {
+          "value": {},
+        }
+      }
+      jestAnimatedStyle={
+        {
+          "value": {
+            "color": "rgba(255, 255, 255, 1)",
+          },
+        }
+      }
+      jestInlineStyle={
+        [
+          {
+            "fontSize": 12,
+            "fontWeight": "600",
+            "includeFontPadding": false,
+            "lineHeight": 14,
+          },
+        ]
+      }
+      nativeID="71"
       style={
         [
           {
@@ -199,7 +349,7 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proposicion" selected 1
             "lineHeight": 14,
           },
           {
-            "color": "#ffffff",
+            "color": "rgba(255, 255, 255, 1)",
           },
         ]
       }
@@ -243,6 +393,32 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proyecto" selected 1`] 
     accessible={true}
     collapsable={false}
     focusable={true}
+    jestAnimatedProps={
+      {
+        "value": {},
+      }
+    }
+    jestAnimatedStyle={
+      {
+        "value": {
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
+        },
+      }
+    }
+    jestInlineStyle={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 999,
+          "borderWidth": 1,
+          "height": 34,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+    nativeID="60"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -263,13 +439,37 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proyecto" selected 1`] 
           "paddingHorizontal": 16,
         },
         {
-          "backgroundColor": "transparent",
-          "borderColor": "#5C6CFA",
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
         },
       ]
     }
   >
     <Text
+      collapsable={false}
+      jestAnimatedProps={
+        {
+          "value": {},
+        }
+      }
+      jestAnimatedStyle={
+        {
+          "value": {
+            "color": "rgba(92, 108, 250, 1)",
+          },
+        }
+      }
+      jestInlineStyle={
+        [
+          {
+            "fontSize": 12,
+            "fontWeight": "600",
+            "includeFontPadding": false,
+            "lineHeight": 14,
+          },
+        ]
+      }
+      nativeID="61"
       style={
         [
           {
@@ -279,7 +479,7 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proyecto" selected 1`] 
             "lineHeight": 14,
           },
           {
-            "color": "#5C6CFA",
+            "color": "rgba(92, 108, 250, 1)",
           },
         ]
       }
@@ -308,6 +508,32 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proyecto" selected 1`] 
     accessible={true}
     collapsable={false}
     focusable={true}
+    jestAnimatedProps={
+      {
+        "value": {},
+      }
+    }
+    jestAnimatedStyle={
+      {
+        "value": {
+          "backgroundColor": "rgba(255, 122, 110, 1)",
+          "borderColor": "rgba(255, 122, 110, 1)",
+        },
+      }
+    }
+    jestInlineStyle={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 999,
+          "borderWidth": 1,
+          "height": 34,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+    nativeID="62"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -328,13 +554,37 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proyecto" selected 1`] 
           "paddingHorizontal": 16,
         },
         {
-          "backgroundColor": "#FF7A6E",
-          "borderColor": "#FF7A6E",
+          "backgroundColor": "rgba(255, 122, 110, 1)",
+          "borderColor": "rgba(255, 122, 110, 1)",
         },
       ]
     }
   >
     <Text
+      collapsable={false}
+      jestAnimatedProps={
+        {
+          "value": {},
+        }
+      }
+      jestAnimatedStyle={
+        {
+          "value": {
+            "color": "rgba(255, 255, 255, 1)",
+          },
+        }
+      }
+      jestInlineStyle={
+        [
+          {
+            "fontSize": 12,
+            "fontWeight": "600",
+            "includeFontPadding": false,
+            "lineHeight": 14,
+          },
+        ]
+      }
+      nativeID="63"
       style={
         [
           {
@@ -344,7 +594,7 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proyecto" selected 1`] 
             "lineHeight": 14,
           },
           {
-            "color": "#ffffff",
+            "color": "rgba(255, 255, 255, 1)",
           },
         ]
       }
@@ -373,6 +623,32 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proyecto" selected 1`] 
     accessible={true}
     collapsable={false}
     focusable={true}
+    jestAnimatedProps={
+      {
+        "value": {},
+      }
+    }
+    jestAnimatedStyle={
+      {
+        "value": {
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
+        },
+      }
+    }
+    jestInlineStyle={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 999,
+          "borderWidth": 1,
+          "height": 34,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+    nativeID="64"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -393,13 +669,37 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proyecto" selected 1`] 
           "paddingHorizontal": 16,
         },
         {
-          "backgroundColor": "transparent",
-          "borderColor": "#5C6CFA",
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
         },
       ]
     }
   >
     <Text
+      collapsable={false}
+      jestAnimatedProps={
+        {
+          "value": {},
+        }
+      }
+      jestAnimatedStyle={
+        {
+          "value": {
+            "color": "rgba(92, 108, 250, 1)",
+          },
+        }
+      }
+      jestInlineStyle={
+        [
+          {
+            "fontSize": 12,
+            "fontWeight": "600",
+            "includeFontPadding": false,
+            "lineHeight": 14,
+          },
+        ]
+      }
+      nativeID="65"
       style={
         [
           {
@@ -409,7 +709,7 @@ exports[`FeedTypeFilter snapshots matches snapshot with "Proyecto" selected 1`] 
             "lineHeight": 14,
           },
           {
-            "color": "#5C6CFA",
+            "color": "rgba(92, 108, 250, 1)",
           },
         ]
       }
@@ -453,6 +753,32 @@ exports[`FeedTypeFilter snapshots matches snapshot with no selection 1`] = `
     accessible={true}
     collapsable={false}
     focusable={true}
+    jestAnimatedProps={
+      {
+        "value": {},
+      }
+    }
+    jestAnimatedStyle={
+      {
+        "value": {
+          "backgroundColor": "rgba(255, 122, 110, 1)",
+          "borderColor": "rgba(255, 122, 110, 1)",
+        },
+      }
+    }
+    jestInlineStyle={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 999,
+          "borderWidth": 1,
+          "height": 34,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+    nativeID="54"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -473,13 +799,37 @@ exports[`FeedTypeFilter snapshots matches snapshot with no selection 1`] = `
           "paddingHorizontal": 16,
         },
         {
-          "backgroundColor": "#FF7A6E",
-          "borderColor": "#FF7A6E",
+          "backgroundColor": "rgba(255, 122, 110, 1)",
+          "borderColor": "rgba(255, 122, 110, 1)",
         },
       ]
     }
   >
     <Text
+      collapsable={false}
+      jestAnimatedProps={
+        {
+          "value": {},
+        }
+      }
+      jestAnimatedStyle={
+        {
+          "value": {
+            "color": "rgba(255, 255, 255, 1)",
+          },
+        }
+      }
+      jestInlineStyle={
+        [
+          {
+            "fontSize": 12,
+            "fontWeight": "600",
+            "includeFontPadding": false,
+            "lineHeight": 14,
+          },
+        ]
+      }
+      nativeID="55"
       style={
         [
           {
@@ -489,7 +839,7 @@ exports[`FeedTypeFilter snapshots matches snapshot with no selection 1`] = `
             "lineHeight": 14,
           },
           {
-            "color": "#ffffff",
+            "color": "rgba(255, 255, 255, 1)",
           },
         ]
       }
@@ -518,6 +868,32 @@ exports[`FeedTypeFilter snapshots matches snapshot with no selection 1`] = `
     accessible={true}
     collapsable={false}
     focusable={true}
+    jestAnimatedProps={
+      {
+        "value": {},
+      }
+    }
+    jestAnimatedStyle={
+      {
+        "value": {
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
+        },
+      }
+    }
+    jestInlineStyle={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 999,
+          "borderWidth": 1,
+          "height": 34,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+    nativeID="56"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -538,13 +914,37 @@ exports[`FeedTypeFilter snapshots matches snapshot with no selection 1`] = `
           "paddingHorizontal": 16,
         },
         {
-          "backgroundColor": "transparent",
-          "borderColor": "#5C6CFA",
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
         },
       ]
     }
   >
     <Text
+      collapsable={false}
+      jestAnimatedProps={
+        {
+          "value": {},
+        }
+      }
+      jestAnimatedStyle={
+        {
+          "value": {
+            "color": "rgba(92, 108, 250, 1)",
+          },
+        }
+      }
+      jestInlineStyle={
+        [
+          {
+            "fontSize": 12,
+            "fontWeight": "600",
+            "includeFontPadding": false,
+            "lineHeight": 14,
+          },
+        ]
+      }
+      nativeID="57"
       style={
         [
           {
@@ -554,7 +954,7 @@ exports[`FeedTypeFilter snapshots matches snapshot with no selection 1`] = `
             "lineHeight": 14,
           },
           {
-            "color": "#5C6CFA",
+            "color": "rgba(92, 108, 250, 1)",
           },
         ]
       }
@@ -583,6 +983,32 @@ exports[`FeedTypeFilter snapshots matches snapshot with no selection 1`] = `
     accessible={true}
     collapsable={false}
     focusable={true}
+    jestAnimatedProps={
+      {
+        "value": {},
+      }
+    }
+    jestAnimatedStyle={
+      {
+        "value": {
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
+        },
+      }
+    }
+    jestInlineStyle={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 999,
+          "borderWidth": 1,
+          "height": 34,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+    nativeID="58"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -603,13 +1029,37 @@ exports[`FeedTypeFilter snapshots matches snapshot with no selection 1`] = `
           "paddingHorizontal": 16,
         },
         {
-          "backgroundColor": "transparent",
-          "borderColor": "#5C6CFA",
+          "backgroundColor": "rgba(255, 122, 110, 0)",
+          "borderColor": "rgba(92, 108, 250, 1)",
         },
       ]
     }
   >
     <Text
+      collapsable={false}
+      jestAnimatedProps={
+        {
+          "value": {},
+        }
+      }
+      jestAnimatedStyle={
+        {
+          "value": {
+            "color": "rgba(92, 108, 250, 1)",
+          },
+        }
+      }
+      jestInlineStyle={
+        [
+          {
+            "fontSize": 12,
+            "fontWeight": "600",
+            "includeFontPadding": false,
+            "lineHeight": 14,
+          },
+        ]
+      }
+      nativeID="59"
       style={
         [
           {
@@ -619,7 +1069,7 @@ exports[`FeedTypeFilter snapshots matches snapshot with no selection 1`] = `
             "lineHeight": 14,
           },
           {
-            "color": "#5C6CFA",
+            "color": "rgba(92, 108, 250, 1)",
           },
         ]
       }

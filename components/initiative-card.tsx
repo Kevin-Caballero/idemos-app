@@ -2,15 +2,13 @@ import { View, Text, Pressable } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withSpring,
+  withTiming,
   FadeInDown,
 } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import type { Initiative, InitiativeType } from "@/hooks/use-feed";
 import { BrandColors } from "@/constants/theme";
-
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 type TypeConfig = {
   label: string;
@@ -115,112 +113,114 @@ export function InitiativeCard({
   }));
 
   return (
-    <AnimatedPressable
-      entering={FadeInDown.delay(Math.min(index * 60, 400))
-        .springify()
-        .damping(18)}
-      onPress={onPress}
-      onPressIn={() => {
-        scale.value = withSpring(0.97, { damping: 15, stiffness: 400 });
-      }}
-      onPressOut={() => {
-        scale.value = withSpring(1, { damping: 15, stiffness: 400 });
-      }}
+    <Animated.View
+      entering={FadeInDown.delay(Math.min(index * 60, 400)).duration(300)}
       className="mx-4 mb-3"
-      style={animatedStyle}
     >
-      <View
-        className="rounded-2xl overflow-hidden bg-white dark:bg-neutral-900"
-        style={{
-          shadowColor: config.accentColor,
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.15,
-          shadowRadius: 10,
-          elevation: 3,
+      <Pressable
+        onPress={onPress}
+        onPressIn={() => {
+          scale.value = withTiming(0.97, { duration: 100 });
+        }}
+        onPressOut={() => {
+          scale.value = withTiming(1, { duration: 150 });
         }}
       >
-        {/* Coloured top border */}
-        <View style={{ height: 3, backgroundColor: config.accentColor }} />
-
-        {/* Gradient fills the card from accent colour (top) to plain white (bottom) */}
-        <LinearGradient
-          colors={[config.gradientStart, "transparent"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 0.6 }}
-          className="p-4"
-        >
-          {/* Header row: type badge + expediente */}
-          <View className="flex-row items-center justify-between mb-3">
-            <View
-              className="rounded-full px-3 py-1"
-              style={{ backgroundColor: config.badgeBg }}
-            >
-              <Text
-                className="text-xs font-semibold"
-                style={{ color: config.badgeText }}
-              >
-                {config.label}
-              </Text>
-            </View>
-            <Text className="text-xs text-neutral-400 dark:text-neutral-500">
-              {initiative.expediente}
-            </Text>
-          </View>
-
-          {/* Title */}
-          <Text
-            className="text-[15px] font-semibold text-neutral-900 dark:text-neutral-100 mb-3"
-            style={{ lineHeight: 22 }}
-            numberOfLines={3}
+        <Animated.View style={animatedStyle}>
+          <View
+            className="rounded-2xl overflow-hidden bg-white dark:bg-neutral-900"
+            style={{
+              shadowColor: config.accentColor,
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.15,
+              shadowRadius: 10,
+              elevation: 3,
+            }}
           >
-            {initiative.title}
-          </Text>
+            {/* Coloured top border */}
+            <View style={{ height: 3, backgroundColor: config.accentColor }} />
 
-          {/* Author */}
-          <View className="flex-row items-center gap-1.5 mb-4">
-            <Ionicons name="person-outline" size={12} color="#a3a3a3" />
-            <Text
-              className="text-xs text-neutral-400 dark:text-neutral-500 flex-1"
-              numberOfLines={1}
+            {/* Gradient fills the card from accent colour (top) to plain white (bottom) */}
+            <LinearGradient
+              colors={[config.gradientStart, "transparent"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 0, y: 0.6 }}
+              className="p-4"
             >
-              {initiative.author}
-            </Text>
-          </View>
+              {/* Header row: type badge + expediente */}
+              <View className="flex-row items-center justify-between mb-3">
+                <View
+                  className="rounded-full px-3 py-1"
+                  style={{ backgroundColor: config.badgeBg }}
+                >
+                  <Text
+                    className="text-xs font-semibold"
+                    style={{ color: config.badgeText }}
+                  >
+                    {config.label}
+                  </Text>
+                </View>
+                <Text className="text-xs text-neutral-400 dark:text-neutral-500">
+                  {initiative.expediente}
+                </Text>
+              </View>
 
-          {/* Divider */}
-          <View className="h-px bg-neutral-100 dark:bg-neutral-800 mb-3" />
-
-          {/* Footer: status pill + date */}
-          <View className="flex-row items-center justify-between">
-            <View
-              className="flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
-              style={{
-                backgroundColor: statusStyle.bg,
-                maxWidth: "68%",
-              }}
-            >
-              <View
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ backgroundColor: statusStyle.dot }}
-              />
+              {/* Title */}
               <Text
-                className="text-xs font-medium"
-                style={{ color: statusStyle.text }}
-                numberOfLines={1}
+                className="text-[15px] font-semibold text-neutral-900 dark:text-neutral-100 mb-3"
+                style={{ lineHeight: 22 }}
+                numberOfLines={3}
               >
-                {initiative.currentStatus}
+                {initiative.title}
               </Text>
-            </View>
 
-            <View className="flex-row items-center gap-1">
-              <Ionicons name="calendar-outline" size={11} color="#a3a3a3" />
-              <Text className="text-xs text-neutral-400 dark:text-neutral-500">
-                {formatDate(initiative.presentedAt)}
-              </Text>
-            </View>
+              {/* Author */}
+              <View className="flex-row items-center gap-1.5 mb-4">
+                <Ionicons name="person-outline" size={12} color="#a3a3a3" />
+                <Text
+                  className="text-xs text-neutral-400 dark:text-neutral-500 flex-1"
+                  numberOfLines={1}
+                >
+                  {initiative.author}
+                </Text>
+              </View>
+
+              {/* Divider */}
+              <View className="h-px bg-neutral-100 dark:bg-neutral-800 mb-3" />
+
+              {/* Footer: status pill + date */}
+              <View className="flex-row items-center justify-between">
+                <View
+                  className="flex-row items-center gap-1.5 rounded-full px-2.5 py-1"
+                  style={{
+                    backgroundColor: statusStyle.bg,
+                    maxWidth: "68%",
+                  }}
+                >
+                  <View
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ backgroundColor: statusStyle.dot }}
+                  />
+                  <Text
+                    className="text-xs font-medium"
+                    style={{ color: statusStyle.text }}
+                    numberOfLines={1}
+                  >
+                    {initiative.currentStatus}
+                  </Text>
+                </View>
+
+                <View className="flex-row items-center gap-1">
+                  <Ionicons name="calendar-outline" size={11} color="#a3a3a3" />
+                  <Text className="text-xs text-neutral-400 dark:text-neutral-500">
+                    {formatDate(initiative.presentedAt)}
+                  </Text>
+                </View>
+              </View>
+            </LinearGradient>
           </View>
-        </LinearGradient>
-      </View>
-    </AnimatedPressable>
+        </Animated.View>
+      </Pressable>
+    </Animated.View>
   );
 }
