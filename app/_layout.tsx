@@ -6,12 +6,11 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
 import "react-native-reanimated";
 import "./global.css";
 
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { useAuthStore } from "@/store/auth.store";
+import { useAppInit } from "@/hooks/use-app-init";
 
 const queryClient = new QueryClient();
 
@@ -21,11 +20,7 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const { isAuthenticated, isLoading, loadTokens } = useAuthStore();
-
-  useEffect(() => {
-    loadTokens();
-  }, []);
+  const { isAuthenticated, isLoading } = useAppInit();
 
   if (isLoading) return null;
 
