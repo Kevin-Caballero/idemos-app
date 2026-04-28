@@ -6,11 +6,13 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
 import "react-native-reanimated";
 import "./global.css";
 
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useAppInit } from "@/hooks/use-app-init";
+import { usePreferencesStore } from "@/store/preferences.store";
 
 const queryClient = new QueryClient();
 
@@ -19,14 +21,24 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const systemScheme = useColorScheme();
   const { isAuthenticated, isLoading } = useAppInit();
+  const { theme, loadPreferences } = usePreferencesStore();
+
+  useEffect(() => {
+    loadPreferences();
+  }, [loadPreferences]);
+
+  const effectiveScheme =
+    theme === "system" ? (systemScheme ?? "light") : theme;
 
   if (isLoading) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <ThemeProvider
+        value={effectiveScheme === "dark" ? DarkTheme : DefaultTheme}
+      >
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(auth)" />
           <Stack.Screen name="(tabs)" />
@@ -48,7 +60,7 @@ export default function RootLayout() {
         ) : (
           <Redirect href="/(auth)" />
         )}
-        <StatusBar style="auto" />
+        <StatusBar style={effectiveScheme === "dark" ? "light" : "dark"} />
       </ThemeProvider>
     </QueryClientProvider>
   );
