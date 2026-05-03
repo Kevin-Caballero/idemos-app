@@ -5,6 +5,11 @@ const ACCESS_TOKEN_KEY = "idemos_access_token";
 const REFRESH_TOKEN_KEY = "idemos_refresh_token";
 const USER_EMAIL_KEY = "idemos_user_email";
 
+/**
+ * Decodifica el campo `email` del payload de un JWT sin verificar la firma.
+ * Se usa como fallback para recuperar el email en sesiones iniciadas antes de que
+ * se introdujera el almacenamiento explícito de email en SecureStore.
+ */
 function decodeJwtEmail(token: string): string | null {
   try {
     const payload = token.split(".")[1];
@@ -15,6 +20,12 @@ function decodeJwtEmail(token: string): string | null {
   }
 }
 
+/**
+ * Estado global de autenticación gestionado con Zustand.
+ * Los tokens se persisten en SecureStore (almacenamiento cifrado del dispositivo)
+ * para sobrevivir reinicios de la app. `isLoading` se usa en el layout raíz
+ * para evitar redirigir al usuario antes de que se hayan cargado los tokens.
+ */
 interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
@@ -30,6 +41,10 @@ interface AuthState {
   loadTokens: () => Promise<void>;
 }
 
+/**
+ * Store principal de autenticación. Expone los tokens JWT, el estado de sesión
+ * y las acciones para iniciar/cerrar sesión y restaurar la sesión al arrancar.
+ */
 export const useAuthStore = create<AuthState>()((set) => ({
   accessToken: null,
   refreshToken: null,

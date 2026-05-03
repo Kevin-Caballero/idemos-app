@@ -1,6 +1,11 @@
 import { useState, useCallback } from "react";
 import { useFeed, type Initiative, type InitiativeType } from "./use-feed";
 
+/**
+ * Hook de presentación para la pantalla del feed.
+ * Separa la lógica de estado (tipo de filtro, paginación) del componente
+ * de vista para facilitar el testeo y mantener los screens delgados.
+ */
 export function useFeedScreen() {
   const [type, setType] = useState<InitiativeType | undefined>(undefined);
 

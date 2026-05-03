@@ -1,23 +1,39 @@
 import { useCallback, useEffect, useRef } from "react";
-import * as Notifications from "expo-notifications";
 import { AppState } from "react-native";
+import Constants from "expo-constants";
 import { apiFetch } from "@/lib/api";
 import { useFollowStatusStore } from "@/store/follow-status.store";
 import type { FollowedInitiative } from "@/hooks/use-follows";
 import { useAuthStore } from "@/store/auth.store";
 
-// Show notifications while app is in foreground too
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowBanner: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-    shouldShowList: true,
-  }),
-});
+// expo-notifications registers push tokens at import time, which is not
+// supported in Expo Go since SDK 53. We lazy-require it at runtime so the
+// module initialisation code never runs in Expo Go.
+const IS_EXPO_GO = Constants.appOwnership === "expo";
+
+type NotificationsModule = typeof import("expo-notifications");
+
+function getNotifications(): NotificationsModule {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  return require("expo-notifications") as NotificationsModule;
+}
+
+let notificationHandlerSet = false;
+function ensureNotificationHandler(): void {
+  if (notificationHandlerSet) return;
+  notificationHandlerSet = true;
+  getNotifications().setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowBanner: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+      shouldShowList: true,
+    }),
+  });
+}
 
 async function requestPermissions(): Promise<boolean> {
-  const { status } = await Notifications.requestPermissionsAsync();
+  const { status } = await getNotifications().requestPermissionsAsync();
   return status === "granted";
 }
 
@@ -25,12 +41,18 @@ async function scheduleLocalNotification(
   title: string,
   body: string,
 ): Promise<void> {
-  await Notifications.scheduleNotificationAsync({
+  await getNotifications().scheduleNotificationAsync({
     content: { title, body },
     trigger: null, // fire immediately
   });
 }
 
+/**
+ * Compara el estado actual de cada iniciativa seguida con el último estado
+ * conocido y lanza una notificación local para cada cambio detectado.
+ * Actualiza el store tras la comprobación para que la próxima vez
+ * se use el nuevo estado como referencia.
+ */
 async function checkForStatusChanges(): Promise<void> {
   const { statuses, updateMany } = useFollowStatusStore.getState();
   const isAuthenticated = useAuthStore.getState().isAuthenticated;
@@ -67,6 +89,13 @@ async function checkForStatusChanges(): Promise<void> {
   }
 }
 
+/**
+ * Hook que detecta cambios de estado en las iniciativas seguidas y muestra
+ * notificaciones locales al usuario. Se ejecuta al montar la app (mount)
+ * y cada vez que la app vuelve al primer plano (AppState: active).
+ * Las notificaciones requieren permiso explícito del usuario; si no se concede,
+ * la comprobación de cambios no se realiza.
+ */
 export function useFollowNotifications() {
   const { load } = useFollowStatusStore();
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -74,8 +103,9 @@ export function useFollowNotifications() {
   const initialized = useRef(false);
 
   const init = useCallback(async () => {
-    if (initialized.current || !isAuthenticated) return;
+    if (IS_EXPO_GO || initialized.current || !isAuthenticated) return;
     initialized.current = true;
+    ensureNotificationHandler();
     await load();
     hasPermission.current = await requestPermissions();
     if (hasPermission.current) {
@@ -90,7 +120,7 @@ export function useFollowNotifications() {
 
   // Run when app comes back to foreground
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (IS_EXPO_GO || !isAuthenticated) return;
     const sub = AppState.addEventListener("change", (state) => {
       if (state === "active" && hasPermission.current) {
         void checkForStatusChanges();

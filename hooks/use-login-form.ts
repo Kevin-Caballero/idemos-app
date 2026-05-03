@@ -2,6 +2,12 @@ import { useState } from "react";
 import { router } from "expo-router";
 import { useAuthStore } from "@/store/auth.store";
 
+/**
+ * Hook que encapsula el estado y la lógica del formulario de login.
+ * Gestiona la validación local, la llamada directa al endpoint /auth/login
+ * (sin pasar por apiFetch ya que aún no hay token) y la redirección
+ * a la pantalla principal tras autenticarse correctamente.
+ */
 export function useLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

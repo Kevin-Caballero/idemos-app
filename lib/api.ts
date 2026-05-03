@@ -2,11 +2,19 @@ import { useAuthStore } from "@/store/auth.store";
 
 const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "";
 
-console.log(`[API] Base URL: ${BASE_URL || "(empty — check EXPO_PUBLIC_API_URL)"}`);
+console.log(
+  `[API] Base URL: ${BASE_URL || "(empty — check EXPO_PUBLIC_API_URL)"}`,
+);
 
 let isRefreshing = false;
 let refreshPromise: Promise<string | null> | null = null;
 
+/**
+ * Intenta renovar el access token usando el refresh token almacenado.
+ * Si la renovación falla (token expirado o red caída) limpia la sesión.
+ * Se serializa mediante `refreshPromise` para que múltiples llamadas
+ * simultáneas con 401 solo generen una única petición de renovación.
+ */
 async function tryRefresh(): Promise<string | null> {
   const { refreshToken, setTokens, clearTokens } = useAuthStore.getState();
   if (!refreshToken) return null;
@@ -36,6 +44,13 @@ async function tryRefresh(): Promise<string | null> {
   }
 }
 
+/**
+ * Función central de llamadas a la API del gateway.
+ * Inyecta automáticamente el Authorization header con el access token actual.
+ * Si el servidor responde 401, intenta renovar el token una sola vez y reintenta
+ * la petición original. Si la renovación falla, lanza el error para que el
+ * AuthContext redirigir al usuario al login.
+ */
 export async function apiFetch<T>(
   path: string,
   options: RequestInit = {},

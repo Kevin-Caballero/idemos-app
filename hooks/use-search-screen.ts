@@ -36,6 +36,13 @@ const EMPTY_FILTERS: AppliedFilters = {
   votedOnly: false,
 };
 
+/**
+ * Hook de presentación para la pantalla de búsqueda.
+ * Gestiona el debounce del texto de búsqueda (350 ms), el estado del panel de
+ * filtros avanzados (borrador vs aplicado) y la paginación de resultados.
+ * Los filtros tienen un estado "borrador" que solo se aplica al pulsar "Aplicar",
+ * evitando llamadas a la API con cada cambio de los selectores del panel.
+ */
 export function useSearchScreen() {
   const [inputValue, setInputValue] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");

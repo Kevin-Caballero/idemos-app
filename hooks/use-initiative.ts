@@ -31,6 +31,10 @@ export interface InitiativeDetail extends Initiative {
   summary: InitiativeSummary | null;
 }
 
+/**
+ * Recupera el detalle completo de una iniciativa incluyendo sus pasos de
+ * tramitación, enlaces documentales y el resumen generado por IA.
+ */
 export function useInitiative(id: string) {
   return useQuery<InitiativeDetail>({
     queryKey: ["initiative", id],
