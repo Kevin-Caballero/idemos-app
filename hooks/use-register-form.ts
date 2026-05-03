@@ -2,6 +2,11 @@ import { useState } from "react";
 import { router } from "expo-router";
 import { useAuthStore } from "@/store/auth.store";
 
+/**
+ * Hook que encapsula el estado y la lógica del formulario de registro.
+ * Realiza validaciones previas al envío (campos requeridos, contraseñas coincidentes,
+ * longitud mínima, aceptación de términos) antes de llamar a /auth/register.
+ */
 export function useRegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

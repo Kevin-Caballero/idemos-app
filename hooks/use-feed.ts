@@ -32,6 +32,12 @@ export interface FeedPage {
 
 const LIMIT = 20;
 
+/**
+ * Hook de carga paginada del feed principal de iniciativas.
+ * Usa infinite query de React Query para implementar scroll infinito.
+ * La query key incluye el tipo de filtro para que cambiar de tipo
+ * invalide automáticamente el caché y muestre el spinner de carga.
+ */
 export function useFeed(type?: InitiativeType) {
   return useInfiniteQuery<FeedPage>({
     queryKey: ["feed", type],

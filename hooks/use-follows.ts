@@ -12,6 +12,9 @@ export interface FollowedInitiative {
   followedAt: string;
 }
 
+/**
+ * Recupera la lista completa de iniciativas que sigue el usuario autenticado.
+ */
 export function useFollows() {
   return useQuery<FollowedInitiative[]>({
     queryKey: ["follows"],

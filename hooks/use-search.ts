@@ -14,6 +14,12 @@ export interface SearchParams {
   hasApplied?: boolean;
 }
 
+/**
+ * Hook de búsqueda paginada de iniciativas con soporte de filtros avanzados.
+ * La query solo se activa cuando hay texto o filtros aplicados (`hasApplied`)
+ * para evitar llamadas vacías al abrir la pantalla de búsqueda.
+ * Usa scroll infinito igual que el feed.
+ */
 export function useSearch(params: SearchParams) {
   const { query, type, status, dateFrom, dateTo, votedOnly, hasApplied } =
     params;

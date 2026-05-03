@@ -22,6 +22,11 @@ export interface VoteStats {
   officialVotedAt: string | null;
 }
 
+/**
+ * Recupera el voto actual del usuario para una iniciativa concreta.
+ * `retry: false` evita reintentos innecesarios cuando el usuario aún no ha votado
+ * (el servidor devuelve null, no un error).
+ */
 export function useUserVote(initiativeId: string) {
   return useQuery<UserVote | null>({
     queryKey: ["vote", initiativeId],
@@ -32,6 +37,10 @@ export function useUserVote(initiativeId: string) {
   });
 }
 
+/**
+ * Recupera las estadísticas de votación ciudadana y el resultado oficial del Congreso
+ * para una iniciativa, combinados en un único objeto `VoteStats`.
+ */
 export function useVoteStats(initiativeId: string) {
   return useQuery<VoteStats>({
     queryKey: ["vote-stats", initiativeId],
@@ -41,6 +50,12 @@ export function useVoteStats(initiativeId: string) {
   });
 }
 
+/**
+ * Hook para emitir o cambiar un voto sobre una iniciativa.
+ * Implementa UI optimista: actualiza el store local antes de recibir la respuesta
+ * del servidor y lo revierte en caso de error. Al tener éxito, invalida las
+ * queries de voto, estadísticas, feed y búsqueda para reflejar el cambio en toda la app.
+ */
 export function useCastVote(initiativeId: string) {
   const queryClient = useQueryClient();
   const { setOptimisticVote, clearOptimisticVote } = useVoteStore.getState();

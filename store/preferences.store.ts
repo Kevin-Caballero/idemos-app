@@ -7,6 +7,11 @@ export type ThemePreference = "light" | "dark" | "system";
 const THEME_KEY = "idemos_theme";
 const NOTIFICATIONS_KEY = "idemos_notifications";
 
+/**
+ * Aplica el esquema de color en NativeWind.
+ * Cuando la preferencia es "system" se pasa null para que NativeWind
+ * delegue en las preferencias del sistema operativo.
+ */
 function applyColorScheme(theme: ThemePreference) {
   // NativeWind uses null to mean "follow system"
   nwColorScheme.set(theme === "system" ? "system" : theme);
@@ -21,6 +26,11 @@ interface PreferencesState {
   loadPreferences: () => Promise<void>;
 }
 
+/**
+ * Store de preferencias de usuario (tema visual y notificaciones).
+ * Los valores se persisten en SecureStore para mantenerlos entre reinicios.
+ * `isLoaded` previene un flash del tema por defecto antes de leer el valor guardado.
+ */
 export const usePreferencesStore = create<PreferencesState>()((set) => ({
   theme: "system",
   notifications: true,
