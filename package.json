@@ -6,13 +6,16 @@
     "start": "expo start --port 3001",
     "reset-project": "node ./scripts/reset-project.js",
     "emulator": "dotenv -e .env.emulator -- expo start --android --port 3001",
-    "mobile": "dotenv -e .env.mobile.local -- expo start --port 3001",
+    "device": "dotenv -e .env.mobile.local -- expo start --port 3001",
     "android": "expo start --android --port 3001",
     "ios": "expo start --ios --port 3001",
     "web": "expo start --web --port 3001",
     "lint": "expo lint",
     "test": "jest --watchAll=false",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "generate:apk": "eas build --platform android --profile preview",
+    "generate:apk:prod": "eas build --platform android --profile production",
+    "generate:apk:local": "eas build --platform android --profile preview --local"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

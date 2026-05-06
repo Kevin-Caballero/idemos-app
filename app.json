@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "IDemos",
-    "slug": "IDemos",
+    "slug": "idemos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -12,6 +12,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.idemos.app",
       "usesCleartextTraffic": true,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -46,6 +47,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "b6321531-4459-445e-bbb2-670edf8e150c"
+      }
+    },
+    "owner": "lllkvnlll"
   }
 }
