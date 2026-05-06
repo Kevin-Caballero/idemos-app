@@ -11,6 +11,7 @@ export interface SearchParams {
   dateFrom?: string;
   dateTo?: string;
   votedOnly?: boolean;
+  hasOfficialVote?: boolean;
   hasApplied?: boolean;
 }
 
@@ -21,13 +22,37 @@ export interface SearchParams {
  * Usa scroll infinito igual que el feed.
  */
 export function useSearch(params: SearchParams) {
-  const { query, type, status, dateFrom, dateTo, votedOnly, hasApplied } =
-    params;
+  const {
+    query,
+    type,
+    status,
+    dateFrom,
+    dateTo,
+    votedOnly,
+    hasOfficialVote,
+    hasApplied,
+  } = params;
   const hasQuery = query.trim().length > 0;
-  const hasFilters = !!(type || status || dateFrom || dateTo || votedOnly);
+  const hasFilters = !!(
+    type ||
+    status ||
+    dateFrom ||
+    dateTo ||
+    votedOnly ||
+    hasOfficialVote
+  );
 
   return useInfiniteQuery<FeedPage>({
-    queryKey: ["search", query, type, status, dateFrom, dateTo, votedOnly],
+    queryKey: [
+      "search",
+      query,
+      type,
+      status,
+      dateFrom,
+      dateTo,
+      votedOnly,
+      hasOfficialVote,
+    ],
     queryFn: ({ pageParam }) => {
       const page = (pageParam as number) ?? 1;
       const urlParams = new URLSearchParams({
@@ -40,6 +65,7 @@ export function useSearch(params: SearchParams) {
       if (dateFrom) urlParams.set("dateFrom", dateFrom);
       if (dateTo) urlParams.set("dateTo", dateTo);
       if (votedOnly) urlParams.set("votedOnly", "true");
+      if (hasOfficialVote) urlParams.set("hasOfficialVote", "true");
       return apiFetch<FeedPage>(`/search?${urlParams.toString()}`);
     },
     initialPageParam: 1,

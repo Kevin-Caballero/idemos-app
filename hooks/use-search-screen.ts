@@ -26,6 +26,7 @@ interface AppliedFilters {
   dateFrom: string;
   dateTo: string;
   votedOnly: boolean;
+  hasOfficialVote: boolean;
 }
 
 const EMPTY_FILTERS: AppliedFilters = {
@@ -34,6 +35,7 @@ const EMPTY_FILTERS: AppliedFilters = {
   dateFrom: "",
   dateTo: "",
   votedOnly: false,
+  hasOfficialVote: false,
 };
 
 /**
@@ -55,6 +57,7 @@ export function useSearchScreen() {
   const [draftDateFrom, setDraftDateFrom] = useState("");
   const [draftDateTo, setDraftDateTo] = useState("");
   const [draftVotedOnly, setDraftVotedOnly] = useState(false);
+  const [draftHasOfficialVote, setDraftHasOfficialVote] = useState(false);
 
   const [applied, setApplied] = useState<AppliedFilters>(EMPTY_FILTERS);
   const [hasApplied, setHasApplied] = useState(false);
@@ -76,6 +79,7 @@ export function useSearchScreen() {
     dateFrom: applied.dateFrom ? toISO(applied.dateFrom) : undefined,
     dateTo: applied.dateTo ? toISO(applied.dateTo) : undefined,
     votedOnly: applied.votedOnly || undefined,
+    hasOfficialVote: applied.hasOfficialVote || undefined,
     hasApplied,
   };
 
@@ -114,10 +118,18 @@ export function useSearchScreen() {
       dateFrom: draftDateFrom,
       dateTo: draftDateTo,
       votedOnly: draftVotedOnly,
+      hasOfficialVote: draftHasOfficialVote,
     });
     setHasApplied(true);
     setFilterOpen(false);
-  }, [draftType, draftStatuses, draftDateFrom, draftDateTo, draftVotedOnly]);
+  }, [
+    draftType,
+    draftStatuses,
+    draftDateFrom,
+    draftDateTo,
+    draftVotedOnly,
+    draftHasOfficialVote,
+  ]);
 
   const handleClearFilters = useCallback(() => {
     setDraftType(undefined);
@@ -125,6 +137,7 @@ export function useSearchScreen() {
     setDraftDateFrom("");
     setDraftDateTo("");
     setDraftVotedOnly(false);
+    setDraftHasOfficialVote(false);
     setApplied(EMPTY_FILTERS);
     setHasApplied(false);
     setFilterOpen(false);
@@ -144,7 +157,8 @@ export function useSearchScreen() {
     applied.statuses.size > 0 ||
     !!applied.dateFrom ||
     !!applied.dateTo ||
-    applied.votedOnly;
+    applied.votedOnly ||
+    applied.hasOfficialVote;
 
   return {
     inputValue,
@@ -162,6 +176,8 @@ export function useSearchScreen() {
     setDraftDateTo,
     draftVotedOnly,
     setDraftVotedOnly,
+    draftHasOfficialVote,
+    setDraftHasOfficialVote,
     handleApply,
     handleClearFilters,
     handleClear,

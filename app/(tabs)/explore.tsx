@@ -61,6 +61,8 @@ export default function SearchScreen() {
     setDraftDateTo,
     draftVotedOnly,
     setDraftVotedOnly,
+    draftHasOfficialVote,
+    setDraftHasOfficialVote,
     handleApply,
     handleClearFilters,
     handleClear,
@@ -171,6 +173,17 @@ export default function SearchScreen() {
               label="Solo votadas"
               active={draftVotedOnly}
               onPress={() => setDraftVotedOnly((v) => !v)}
+            />
+          </View>
+
+          <Text className="text-[11px] font-bold text-primary uppercase tracking-widest mb-[10px]">
+            Votación parlamentaria
+          </Text>
+          <View className="flex-row gap-2 mb-5">
+            <PillButton
+              label="Con votación oficial"
+              active={draftHasOfficialVote}
+              onPress={() => setDraftHasOfficialVote((v) => !v)}
             />
           </View>
 

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -198,6 +198,8 @@ function VoteChart({
   );
 }
 
+const MAX_VISIBLE_LINKS = 5;
+
 export default function InitiativeDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
@@ -212,6 +214,7 @@ export default function InitiativeDetailScreen() {
   );
   const isFollowing = followData?.following ?? false;
   const { update: markStatusSeen } = useFollowStatusStore();
+  const [showAllLinks, setShowAllLinks] = useState(false);
 
   // Mark status as seen when entering the detail
   useEffect(() => {
@@ -497,46 +500,69 @@ export default function InitiativeDetailScreen() {
                 </Text>
               </View>
             ) : (
-              initiative.links.map((link, idx) => {
-                const isLast = idx === initiative.links.length - 1;
-                const badgeColor =
-                  link.linkType === "BOCG"
-                    ? BrandColors.secondary
-                    : link.linkType === "DS"
-                      ? BrandColors.primary
-                      : "#8b5cf6";
-                return (
+              <>
+                {(showAllLinks
+                  ? initiative.links
+                  : initiative.links.slice(0, MAX_VISIBLE_LINKS)
+                ).map((link, idx, arr) => {
+                  const isLast = idx === arr.length - 1;
+                  const badgeColor =
+                    link.linkType === "BOCG"
+                      ? BrandColors.secondary
+                      : link.linkType === "DS"
+                        ? BrandColors.primary
+                        : "#8b5cf6";
+                  return (
+                    <TouchableOpacity
+                      key={link.id}
+                      onPress={() => Linking.openURL(link.url)}
+                      className={`flex-row items-center px-4 py-3 ${
+                        !isLast
+                          ? "border-b border-neutral-100 dark:border-neutral-800"
+                          : ""
+                      }`}
+                      activeOpacity={0.7}
+                    >
+                      <View
+                        className="rounded px-2 py-0.5 mr-3"
+                        style={{ backgroundColor: badgeColor + "20" }}
+                      >
+                        <Text
+                          className="text-xs font-bold"
+                          style={{ color: badgeColor }}
+                        >
+                          {link.linkType}
+                        </Text>
+                      </View>
+                      <Text
+                        className="flex-1 text-sm text-neutral-800 dark:text-neutral-200"
+                        numberOfLines={1}
+                      >
+                        {link.label ?? link.url}
+                      </Text>
+                      <Ionicons name="open-outline" size={15} color="#a3a3a3" />
+                    </TouchableOpacity>
+                  );
+                })}
+                {initiative.links.length > MAX_VISIBLE_LINKS && (
                   <TouchableOpacity
-                    key={link.id}
-                    onPress={() => Linking.openURL(link.url)}
-                    className={`flex-row items-center px-4 py-3 ${
-                      !isLast
-                        ? "border-b border-neutral-100 dark:border-neutral-800"
-                        : ""
-                    }`}
+                    onPress={() => setShowAllLinks((v) => !v)}
+                    className="flex-row items-center justify-center px-4 py-3 border-t border-neutral-100 dark:border-neutral-800"
                     activeOpacity={0.7}
                   >
-                    <View
-                      className="rounded px-2 py-0.5 mr-3"
-                      style={{ backgroundColor: badgeColor + "20" }}
-                    >
-                      <Text
-                        className="text-xs font-bold"
-                        style={{ color: badgeColor }}
-                      >
-                        {link.linkType}
-                      </Text>
-                    </View>
-                    <Text
-                      className="flex-1 text-sm text-neutral-800 dark:text-neutral-200"
-                      numberOfLines={1}
-                    >
-                      {link.label ?? link.url}
+                    <Text className="text-sm text-blue-500 font-medium mr-1">
+                      {showAllLinks
+                        ? "Ver menos"
+                        : `Ver todas (${initiative.links.length})`}
                     </Text>
-                    <Ionicons name="open-outline" size={15} color="#a3a3a3" />
+                    <Ionicons
+                      name={showAllLinks ? "chevron-up" : "chevron-down"}
+                      size={14}
+                      color="#3b82f6"
+                    />
                   </TouchableOpacity>
-                );
-              })
+                )}
+              </>
             )}
           </View>
         </SectionCard>
