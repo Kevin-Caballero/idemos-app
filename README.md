@@ -1,50 +1,78 @@
-# Welcome to your Expo app 👋
+# idemos — App (Expo)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicación móvil construida con [Expo](https://expo.dev) y React Native.
 
-## Get started
+## Requisitos
 
-1. Install dependencies
+| Herramienta / Paquete | Versión  |
+| --------------------- | -------- |
+| Node.js               | >= 20.0  |
+| npm                   | >= 10.0  |
+| TypeScript            | ~5.9.2   |
+| Expo                  | ~54.0.34 |
+| React Native          | 0.81.5   |
+| React                 | 19.1.0   |
+| Expo Router           | ~6.0.23  |
 
-   ```bash
-   npm install
-   ```
+> Para dispositivo físico se necesita la app **Expo Go** instalada, o un [development build](https://docs.expo.dev/develop/development-builds/introduction/).
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Instalación
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Ejecutar la app
 
-## Learn more
+### En emulador Android
 
-To learn more about developing your project with Expo, look at the following resources:
+Usa el archivo de entorno `.env.emulator`. No requiere configuración adicional porque el emulador accede al host mediante `10.0.2.2`.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm run emulator
+```
 
-## Join the community
+### En dispositivo físico
 
-Join our community of developers creating universal apps.
+Usa el archivo de entorno `.env.mobile.local`. Antes de lanzarla **debes ajustar la IP** del backend en ese archivo para que apunte a la IP local de tu máquina en la red (ej. `192.168.1.x`).
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+# .env.mobile.local
+EXPO_PUBLIC_API_URL=http://192.168.1.x:3000
+```
+
+```bash
+npm run device
+```
+
+### Sin entorno específico (menú interactivo)
+
+Abre el menú de Expo donde puedes elegir manualmente emulador, dispositivo o web.
+
+```bash
+npm start
+```
+
+## Variables de entorno
+
+| Variable              | Descripción              |
+| --------------------- | ------------------------ |
+| `EXPO_PUBLIC_API_URL` | URL base del API gateway |
+
+| Archivo             | Usado por          |
+| ------------------- | ------------------ |
+| `.env.emulator`     | `npm run emulator` |
+| `.env.mobile.local` | `npm run device`   |
+
+## Build APK
+
+```bash
+# Preview (EAS cloud)
+npm run generate:apk
+
+# Preview (local)
+npm run generate:apk:local
+
+# Producción
+npm run generate:apk:prod
+```
