@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
+import { router } from "expo-router";
 import { ScrollView, Switch, Text, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -39,6 +40,7 @@ export default function SettingsScreen() {
   const notifications = usePreferencesStore((s) => s.notifications);
   const setTheme = usePreferencesStore((s) => s.setTheme);
   const setNotifications = usePreferencesStore((s) => s.setNotifications);
+  const resetOnboarding = usePreferencesStore((s) => s.resetOnboarding);
 
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
@@ -236,6 +238,28 @@ export default function SettingsScreen() {
             </View>
           </View>
         </View>
+        {/* DEV */}
+        {__DEV__ && (
+          <View className="mb-6">
+            <SectionHeader title="Desarrollo" />
+            <View className="bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden mx-4">
+              <Pressable
+                onPress={async () => {
+                  await resetOnboarding();
+                  router.replace("/onboarding");
+                }}
+                className="flex-row items-center px-4 py-3.5 active:opacity-70"
+              >
+                <View className="w-10 h-10 rounded-full items-center justify-center bg-violet-100 dark:bg-violet-950/50 mr-3">
+                  <Ionicons name="refresh-outline" size={20} color="#7C3AED" />
+                </View>
+                <Text className="flex-1 text-base text-violet-600 dark:text-violet-400 font-medium">
+                  Ver onboarding de nuevo
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

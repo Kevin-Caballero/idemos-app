@@ -24,7 +24,8 @@ export const unstable_settings = {
 export default function RootLayout() {
   const systemScheme = useColorScheme();
   const { isAuthenticated, isLoading } = useAppInit();
-  const { theme, loadPreferences } = usePreferencesStore();
+  const { theme, hasSeenOnboarding, isLoaded, loadPreferences } =
+    usePreferencesStore();
   useFollowNotifications();
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function RootLayout() {
   const effectiveScheme =
     theme === "system" ? (systemScheme ?? "light") : theme;
 
-  if (isLoading) return null;
+  if (isLoading || !isLoaded) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -42,6 +43,7 @@ export default function RootLayout() {
         value={effectiveScheme === "dark" ? DarkTheme : DefaultTheme}
       >
         <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="onboarding" options={{ animation: "fade" }} />
           <Stack.Screen name="(auth)" />
           <Stack.Screen name="(tabs)" />
           <Stack.Screen
@@ -57,7 +59,9 @@ export default function RootLayout() {
             }}
           />
         </Stack>
-        {isAuthenticated ? (
+        {!hasSeenOnboarding ? (
+          <Redirect href="/onboarding" />
+        ) : isAuthenticated ? (
           <Redirect href="/(tabs)" />
         ) : (
           <Redirect href="/(auth)" />
