@@ -47,6 +47,10 @@ export default function RootLayout() {
           <Stack.Screen name="(auth)" />
           <Stack.Screen name="(tabs)" />
           <Stack.Screen
+            name="help"
+            options={{ animation: "slide_from_right" }}
+          />
+          <Stack.Screen
             name="initiative/[id]"
             options={{ animation: "slide_from_right" }}
           />

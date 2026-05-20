@@ -193,6 +193,28 @@ export default function SettingsScreen() {
         <View className="mb-6">
           <SectionHeader title="Acerca de" />
           <View className="bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden mx-4">
+            <Pressable
+              onPress={() => router.push("/help")}
+              className="flex-row items-center px-4 py-3.5 active:opacity-70"
+            >
+              <View
+                className="w-10 h-10 rounded-full items-center justify-center mr-3"
+                style={{ backgroundColor: "#EEF2FF", borderRadius: 20 }}
+              >
+                <Ionicons
+                  name="book-outline"
+                  size={20}
+                  color={BrandColors.primary}
+                />
+              </View>
+              <Text className="flex-1 text-base text-neutral-900 dark:text-neutral-100">
+                Guía de uso
+              </Text>
+              <Ionicons name="chevron-forward" size={16} color={iconColor} />
+            </Pressable>
+
+            <Separator />
+
             <Pressable className="flex-row items-center px-4 py-3.5 active:opacity-70">
               <View className="w-10 h-10 rounded-full items-center justify-center bg-neutral-100 dark:bg-neutral-800 mr-3">
                 <Ionicons
