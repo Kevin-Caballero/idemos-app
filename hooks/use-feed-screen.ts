@@ -19,7 +19,11 @@ export function useFeedScreen() {
     refetch,
   } = useFeed(type);
 
-  const initiatives: Initiative[] = data?.pages.flatMap((p) => p.data) ?? [];
+  const initiatives: Initiative[] = Array.from(
+    new Map(
+      (data?.pages.flatMap((p) => p.data) ?? []).map((i) => [i.id, i]),
+    ).values(),
+  );
 
   const handleTypeSelect = useCallback(
     (selected: InitiativeType | undefined) => {
