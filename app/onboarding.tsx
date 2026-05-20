@@ -38,9 +38,9 @@ const SLIDES: Slide[] = [
   },
   {
     image: require("@/assets/onboarding-notify.png"),
-    title: "Sigue grupos parlamentarios",
+    title: "Sigue iniciativas legislativas",
     description:
-      "Suscríbete a los grupos que te interesan y recibe notificaciones cuando presenten nuevas iniciativas.",
+      "Suscríbete a las iniciativas legislativas que te interesan y recibe notificaciones cuando haya novedades. Mantente al día sin esfuerzo.",
   },
 ];
 
