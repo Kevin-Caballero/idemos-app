@@ -261,7 +261,7 @@ export default function SettingsScreen() {
           </View>
         </View>
         {/* DEV */}
-        {__DEV__ && (
+        {/* {__DEV__ && (
           <View className="mb-6">
             <SectionHeader title="Desarrollo" />
             <View className="bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden mx-4">
@@ -281,7 +281,7 @@ export default function SettingsScreen() {
               </Pressable>
             </View>
           </View>
-        )}
+        )} */}
       </ScrollView>
     </SafeAreaView>
   );

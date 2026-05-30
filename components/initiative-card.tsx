@@ -104,73 +104,37 @@ const VOTE_BADGE: Record<string, { label: string; color: string }> = {
 
 const PARTY_LOGOS: {
   keywords: string[];
-  source: number;
   brandColor: string;
   abbreviation: string;
 }[] = [
   {
     keywords: ["socialista", "psoe"],
-    source: require("@/assets/logos/Partido-Socialista-Obrero-Espanol-Logo.png"),
     brandColor: "#CC0000",
     abbreviation: "PSOE",
   },
-  {
-    keywords: ["popular"],
-    source: require("@/assets/logos/Logo_del_PP_(2022).svg.png"),
-    brandColor: "#003EA1",
-    abbreviation: "PP",
-  },
-  {
-    keywords: ["sumar"],
-    source: require("@/assets/logos/Sumar_logo.svg.png"),
-    brandColor: "#E2095B",
-    abbreviation: "SUMAR",
-  },
-  {
-    keywords: ["vox"],
-    source: require("@/assets/logos/VOX_logo.svg.png"),
-    brandColor: "#52AB44",
-    abbreviation: "VOX",
-  },
-  {
-    keywords: ["bildu"],
-    source: require("@/assets/logos/Logo_de_EH_Bildu_(2023).svg.png"),
-    brandColor: "#00BFA5",
-    abbreviation: "BILDU",
-  },
-  {
-    keywords: ["junts"],
-    source: require("@/assets/logos/Logo_partit_Junts_per_Catalunya.png"),
-    brandColor: "#00A99D",
-    abbreviation: "JUNTS",
-  },
-  {
-    keywords: ["mixto"],
-    source: require("@/assets/logos/Partido-Socialista-Obrero-Espanol-Logo.png"),
-    brandColor: "#9E9E9E",
-    abbreviation: "MIXTO",
-  },
+  { keywords: ["popular"], brandColor: "#003EA1", abbreviation: "PP" },
+  { keywords: ["sumar"], brandColor: "#E2095B", abbreviation: "SUMAR" },
+  { keywords: ["vox"], brandColor: "#52AB44", abbreviation: "VOX" },
+  { keywords: ["bildu"], brandColor: "#00BFA5", abbreviation: "BILDU" },
+  { keywords: ["junts"], brandColor: "#00A99D", abbreviation: "JUNTS" },
+  { keywords: ["mixto"], brandColor: "#9E9E9E", abbreviation: "MIXTO" },
   {
     keywords: ["gobierno", "ejecutivo"],
-    source: require("@/assets/logos/Partido-Socialista-Obrero-Espanol-Logo.png"),
     brandColor: "#F5C518",
     abbreviation: "GOB",
   },
   {
     keywords: ["senado", "senador"],
-    source: require("@/assets/logos/Partido-Socialista-Obrero-Espanol-Logo.png"),
     brandColor: "#B87333",
     abbreviation: "SEN",
   },
   {
     keywords: ["republicano", "erc", "esquerra"],
-    source: require("@/assets/logos/Partido-Socialista-Obrero-Espanol-Logo.png"),
     brandColor: "#E63329",
     abbreviation: "ERC",
   },
   {
     keywords: ["vasco", "pnv", "eaj"],
-    source: require("@/assets/logos/Partido-Socialista-Obrero-Espanol-Logo.png"),
     brandColor: "#1A5C2A",
     abbreviation: "PNV",
   },
@@ -178,15 +142,11 @@ const PARTY_LOGOS: {
 
 function getPartyInfo(
   author: string,
-): { source: number; brandColor: string; abbreviation: string } | null {
+): { brandColor: string; abbreviation: string } | null {
   const lower = author.toLowerCase();
   for (const entry of PARTY_LOGOS) {
     if (entry.keywords.some((k) => lower.includes(k))) {
-      return {
-        source: entry.source,
-        brandColor: entry.brandColor,
-        abbreviation: entry.abbreviation,
-      };
+      return { brandColor: entry.brandColor, abbreviation: entry.abbreviation };
     }
   }
   return null;
