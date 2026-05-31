@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -152,12 +154,18 @@ export default function NotificationsScreen() {
   } = useFollows();
   const { statuses, updateMany } = useFollowStatusStore();
 
-  // After a successful refresh, mark all current statuses as seen
+  useFocusEffect(
+    useCallback(() => {
+      void refetch();
+    }, [refetch]),
+  );
+
   const handleRefresh = async () => {
-    await refetch();
-    if (follows && follows.length > 0) {
+    const result = await refetch();
+    const refreshedFollows = result.data ?? follows;
+    if (refreshedFollows && refreshedFollows.length > 0) {
       await updateMany(
-        follows.map((f) => ({ id: f.id, status: f.currentStatus })),
+        refreshedFollows.map((f) => ({ id: f.id, status: f.currentStatus })),
       );
     }
   };
