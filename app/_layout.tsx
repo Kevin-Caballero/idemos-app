@@ -4,7 +4,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Redirect, Stack } from "expo-router";
+import { Redirect, Stack, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -23,6 +23,7 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const systemScheme = useColorScheme();
+  const segments = useSegments();
   const { isAuthenticated, isLoading } = useAppInit();
   const { theme, hasSeenOnboarding, isLoaded, loadPreferences } =
     usePreferencesStore();
@@ -34,6 +35,14 @@ export default function RootLayout() {
 
   const effectiveScheme =
     theme === "system" ? (systemScheme ?? "light") : theme;
+  const firstSegment = segments[0];
+  const isOnboardingRoute = firstSegment === "onboarding";
+  const isAuthRoute = firstSegment === "(auth)";
+  const shouldRedirectToOnboarding = !hasSeenOnboarding && !isOnboardingRoute;
+  const shouldRedirectToAuth =
+    hasSeenOnboarding && !isAuthenticated && !isAuthRoute;
+  const shouldRedirectToTabs =
+    hasSeenOnboarding && isAuthenticated && (isAuthRoute || !firstSegment);
 
   if (isLoading || !isLoaded) return null;
 
@@ -63,13 +72,13 @@ export default function RootLayout() {
             }}
           />
         </Stack>
-        {!hasSeenOnboarding ? (
+        {shouldRedirectToOnboarding ? (
           <Redirect href="/onboarding" />
-        ) : isAuthenticated ? (
+        ) : shouldRedirectToTabs ? (
           <Redirect href="/(tabs)" />
-        ) : (
+        ) : shouldRedirectToAuth ? (
           <Redirect href="/(auth)" />
-        )}
+        ) : null}
         <StatusBar style={effectiveScheme === "dark" ? "light" : "dark"} />
       </ThemeProvider>
     </QueryClientProvider>
